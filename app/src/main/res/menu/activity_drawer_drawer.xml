@@ -28,15 +28,10 @@
             android:id="@+id/nav_sobre"
             android:icon="@drawable/ic_menu_info_black"
             android:title="Sobre/Suporte" />
+        <item
+            android:id="@+id/nav_sair"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Sair" />
     </group>
-
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/nav_sair"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="Sair" />
-        </menu>
-    </item>
 
 </menu>
