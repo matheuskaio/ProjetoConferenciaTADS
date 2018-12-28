@@ -5,32 +5,32 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_person"
             android:title="Perfil" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_init_conference"
             android:icon="@drawable/ic_menu_local_grocery_store"
             android:title="Iniciar Conferência" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_my_conferences"
             android:icon="@drawable/ic_menu_list_black"
             android:title="Minhas Conferências" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_conferences"
             android:icon="@drawable/ic_menu_format_list_numbered_black"
             android:title="Conferências" />
         <item
-            android:id="@+id/nav_relatorio"
+            android:id="@+id/nav_report"
             android:icon="@drawable/ic_menu_poll_black"
             android:title="Relatório" />
         <item
-            android:id="@+id/nav_sobre"
+            android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_info_black"
             android:title="Sobre/Suporte" />
         <item
             android:id="@+id/nav_sair"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_menu_build"
             android:title="Sair" />
     </group>
 

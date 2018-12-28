@@ -1,6 +1,10 @@
 package com.example.marcio.a3mconf.view;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -14,27 +18,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.marcio.a3mconf.R;
+import com.example.marcio.a3mconf.view.fragment.FragmentAbout;
+import com.example.marcio.a3mconf.view.fragment.FragmentConference;
+import com.example.marcio.a3mconf.view.fragment.FragmentInitConference;
+import com.example.marcio.a3mconf.view.fragment.FragmentMyConference;
+import com.example.marcio.a3mconf.view.fragment.FragmentProfile;
+import com.example.marcio.a3mconf.view.fragment.FragmentReport;
 
 public class ViewPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+        Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -76,24 +79,32 @@ public class ViewPrincipal extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_relatorio) {
-
-        } else if (id == R.id.nav_sobre) {
-
+        switch (item.getItemId()) {
+            case R.id.nav_profile:
+                // Handle the camera action
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProfile()).commit();
+                break;
+            case R.id.nav_init_conference:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentInitConference()).commit();
+                break;
+            case R.id.nav_my_conferences:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMyConference()).commit();
+                break;
+            case R.id.nav_conferences:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentConference()).commit();
+                break;
+            case R.id.nav_report:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentReport()).commit();
+                break;
+            case R.id.nav_about:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAbout()).commit();
+                break;
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
