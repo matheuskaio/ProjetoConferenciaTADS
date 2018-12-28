@@ -1,13 +1,8 @@
 package com.example.marcio.a3mconf.view;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,14 +20,14 @@ import com.example.marcio.a3mconf.view.fragment.FragmentMyConference;
 import com.example.marcio.a3mconf.view.fragment.FragmentProfile;
 import com.example.marcio.a3mconf.view.fragment.FragmentReport;
 
-public class ViewPrincipal extends AppCompatActivity
+public class MainView extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
         Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer);
+        setContentView(R.layout.activity_main_view);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
