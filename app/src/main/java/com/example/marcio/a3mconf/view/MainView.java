@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,18 +12,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.fragment.FragmentAbout;
+import com.example.marcio.a3mconf.view.fragment.FragmentAddLote;
 import com.example.marcio.a3mconf.view.fragment.FragmentConference;
 import com.example.marcio.a3mconf.view.fragment.FragmentInitConference;
 import com.example.marcio.a3mconf.view.fragment.FragmentMyConference;
 import com.example.marcio.a3mconf.view.fragment.FragmentProfile;
 import com.example.marcio.a3mconf.view.fragment.FragmentReport;
+import com.example.marcio.a3mconf.view.listeners.TelaInitConferenceListener;
+
+import control.Funcionario;
 
 public class MainView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TelaInitConferenceListener {
         Toolbar toolbar;
+        private Funcionario funcionario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,7 @@ public class MainView extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
 
@@ -78,15 +87,15 @@ public class MainView extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-
         switch (item.getItemId()) {
             case R.id.nav_profile:
                 // Handle the camera action
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProfile()).commit();
                 break;
             case R.id.nav_init_conference:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentInitConference()).commit();
+                Fragment fic = new FragmentInitConference();
+                //((FragmentInitConference) fic).addListner(this);
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fic).commit();
                 break;
             case R.id.nav_my_conferences:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMyConference()).commit();
@@ -105,5 +114,15 @@ public class MainView extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void openTela() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentAddLote()).commit();
+    }
+
+    @Override
+    public void finalizar() {
+
     }
 }

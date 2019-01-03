@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="3M CONF"
+        android:text="3M CONFM"
         android:layout_centerHorizontal="true"
         android:textColor="#fff"/>
     <TextView
@@ -32,4 +32,18 @@
         android:textColor="#fff"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="120dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEL:(XX)X XXXX-XXXX"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="e-mail:suporte.jivali@3mconfm.com"
+        android:textColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"/>
 </RelativeLayout>
