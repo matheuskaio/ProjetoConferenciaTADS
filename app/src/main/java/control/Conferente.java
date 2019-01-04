@@ -6,5 +6,7 @@ public class Conferente extends Funcionario {
     private List<Carga> cargas;
 
     public void realizarConferencia(){}
-    public void finalizarConferencia(){}
+    public void finalizarConferencia(Carga carga){
+        cargas.add(carga);
+    }
 }

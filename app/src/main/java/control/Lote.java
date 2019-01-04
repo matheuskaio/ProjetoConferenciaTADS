@@ -54,4 +54,12 @@ public class Lote {
     public String getDimensao(){
         return altura + " de altura por " + lastro + " de lastro";
     }
+
+    @Override
+    public String toString() {
+        return nomeProduto +
+                "(" + altura +
+            "/" + lastro +
+                ')';
+    }
 }

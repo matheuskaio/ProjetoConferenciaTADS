@@ -39,7 +39,8 @@
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Produto" />
+                    android:hint="Produto"
+                    android:id="@+id/produto"/>
             </android.support.design.widget.TextInputLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,7 +60,8 @@
                     android:background="#fff">
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/altura"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
             <LinearLayout
@@ -79,7 +81,8 @@
                     android:background="#fff">
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/lastro"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
             <LinearLayout
@@ -100,7 +103,8 @@
                     android:background="#fff">
                     <android.support.design.widget.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:id="@+id/un_medida"/>
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
             <LinearLayout
@@ -154,7 +158,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Adicionar"/>
+                    android:text="Adicionar"
+                    android:id="@+id/adicionar"/>
             </LinearLayout>
         </RelativeLayout>
         </LinearLayout>

@@ -9,7 +9,8 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:background="#fff"></ListView>
+        android:background="#fff"
+        android:id="@+id/lista_de_lotes"></ListView>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

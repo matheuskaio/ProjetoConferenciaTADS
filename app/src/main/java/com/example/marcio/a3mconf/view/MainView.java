@@ -23,14 +23,24 @@ import com.example.marcio.a3mconf.view.fragment.FragmentInitConference;
 import com.example.marcio.a3mconf.view.fragment.FragmentMyConference;
 import com.example.marcio.a3mconf.view.fragment.FragmentProfile;
 import com.example.marcio.a3mconf.view.fragment.FragmentReport;
+import com.example.marcio.a3mconf.view.listeners.TelaAddLoteListener;
 import com.example.marcio.a3mconf.view.listeners.TelaInitConferenceListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import control.Carga;
+import control.Conferente;
 import control.Funcionario;
+import control.Lote;
 
 public class MainView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TelaInitConferenceListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TelaInitConferenceListener,TelaAddLoteListener {
         Toolbar toolbar;
         private Funcionario funcionario;
+        private List<Lote> lotes;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,9 +103,9 @@ public class MainView extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentProfile()).commit();
                 break;
             case R.id.nav_init_conference:
-                Fragment fic = new FragmentInitConference();
-                //((FragmentInitConference) fic).addListner(this);
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fic).commit();
+                lotes = new ArrayList<>();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentInitConference()).commit();
+
                 break;
             case R.id.nav_my_conferences:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentMyConference()).commit();
@@ -123,6 +133,24 @@ public class MainView extends AppCompatActivity
 
     @Override
     public void finalizar() {
+        Carga carga = new Carga();
+        ((Conferente) funcionario).finalizarConferencia(carga);
 
+    }
+
+    @Override
+    public List<Lote> getLotes() {
+        return lotes;
+    }
+
+    @Override
+    public void setLote(List<Lote> lotes) {
+        this.lotes = lotes;
+    }
+
+    @Override
+    public void addLote(Lote lote) {
+        this.lotes.add(lote);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FragmentInitConference()).commit();
     }
 }
