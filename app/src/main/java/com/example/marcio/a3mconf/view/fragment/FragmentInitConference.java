@@ -34,7 +34,7 @@ public class FragmentInitConference extends Fragment {
        btnOpenTela.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               listener.openTela();
+               listener.openTelaAddLote();
            }
        });
        btnFinalizar.setOnClickListener(new View.OnClickListener() {
