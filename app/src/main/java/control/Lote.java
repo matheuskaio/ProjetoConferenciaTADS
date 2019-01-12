@@ -1,8 +1,30 @@
 package control;
 
-public class Lote {
+import java.io.Serializable;
+import java.util.Random;
+
+public class Lote implements Serializable {
+
     private int altura,lastro;
-    private String nomeProduto,observacao,fotoAltura,fotoLastro;
+    private String id,nomeProduto,observacao,fotoAltura,fotoLastro;
+
+    public Lote(int altura, int lastro, String nomeProduto, String observacao) {
+        this.altura = altura;
+        this.lastro = lastro;
+        this.nomeProduto = nomeProduto;
+        this.observacao = observacao;
+        this.id = new Random().nextInt()+"";
+        this.fotoAltura = "altura"+this.id+".png";
+        this.fotoLastro = "lastro"+this.id+".png";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getAltura() {
         return altura;

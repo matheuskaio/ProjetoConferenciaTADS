@@ -1,6 +1,8 @@
 package control;
 
-public abstract class Funcionario {
+import java.io.Serializable;
+
+public abstract class Funcionario implements Serializable{
 
     private String nome,cpf,senha,observarcao,foto;
 
