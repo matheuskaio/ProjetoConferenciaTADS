@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +16,24 @@ import android.widget.TextView;
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.listeners.TelaAddLoteListener;
 
+import control.Conferente;
 import control.Lote;
 
 public class FragmentAddLote extends Fragment {
 
     private TelaAddLoteListener listener;
     private ImageView imageAltura;
-    private ImageView imageLote;
+    private ImageView imageLastro;
     private Button btnAdd;
+    private Conferente conferente;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_add_lote,container,false);
 
-        setQuantidade((TextView) view.findViewById(R.id.quantidade));
+        conferente = (Conferente) getArguments().getSerializable("funcionario");
+
+        ((TextView) view.findViewById(R.id.quantidade)).setText(""+conferente.getCarga().getLotes().size());
 
         btnAdd = view.findViewById(R.id.adicionar);
 
@@ -42,10 +45,10 @@ public class FragmentAddLote extends Fragment {
         });
 
         imageAltura = view.findViewById(R.id.imageAlturaUpload);
-        setUploadImageListener(imageAltura);
+        selectedImageListener(imageAltura);
 
-        imageLote = view.findViewById(R.id.imageLastroUpload);
-        setUploadImageListener(imageLote);
+        imageLastro = view.findViewById(R.id.imageLastroUpload);
+        selectedImageListener(imageLastro);
 
 
         return view;
@@ -53,17 +56,11 @@ public class FragmentAddLote extends Fragment {
 
     public Lote newLote(View view){
 
-        TextInputEditText produto   = view.findViewById(R.id.produto);
-        TextInputEditText altura    = view.findViewById(R.id.altura);
-        TextInputEditText lastro    = view.findViewById(R.id.lastro);
-        TextInputEditText unMedida  = view.findViewById(R.id.un_medida);
+        String produto  = ((TextInputEditText) view.findViewById(R.id.produto)).getText().toString();
+        int altura      = Integer.parseInt(((TextInputEditText) view.findViewById(R.id.altura)).getText().toString());
+        int lastro      = Integer.parseInt(((TextInputEditText)view.findViewById(R.id.lastro)).getText().toString());
 
-        Lote lote = new Lote();
-        lote.setNomeProduto(produto.getText().toString());
-        lote.setAltura(Integer.parseInt(altura.getText().toString()));
-        lote.setLastro(Integer.parseInt(lastro.getText().toString()));
-
-        return lote;
+        return new Lote(altura,lastro, produto, "");
 
     }
 
@@ -73,17 +70,12 @@ public class FragmentAddLote extends Fragment {
         listener = (TelaAddLoteListener) context;
     }
 
-    private void setUploadImageListener(final ImageView image){
+    private void selectedImageListener(final ImageView image){
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.uploadImage(image);
-                Log.e("teste","funcionou");
             }
         });
-    }
-
-    private void setQuantidade(TextView quantidade){
-        quantidade.setText(""+getArguments().getInt("quantidade"));
     }
 }
