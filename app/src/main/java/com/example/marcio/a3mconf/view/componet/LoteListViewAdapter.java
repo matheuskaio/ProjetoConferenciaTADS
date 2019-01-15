@@ -1,13 +1,18 @@
 package com.example.marcio.a3mconf.view.componet;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
 
+import java.io.File;
 import java.util.List;
 
 import control.Lote;
@@ -41,9 +46,17 @@ public class LoteListViewAdapter extends BaseAdapter {
         View view = activity.getLayoutInflater().inflate(R.layout.lote_item_list,parent,false);
         TextView nome = view.findViewById(R.id.lista_lotes_personalizada_nome);
         TextView descrica = view.findViewById(R.id.lista_lotes_personalizada_descricao);
+        ImageView image = view.findViewById(R.id.lista_lotes_personalizada_imagem);
         Lote lote = lotes.get(position);
         nome.setText(lote.toString());
-        descrica.setText("Descricao");
+        descrica.setText(lote.getObservacao());
+        image.setImageBitmap(getImage(lote.getFotoAltura()));
         return view;
+    }
+    private Bitmap getImage(String path){
+
+        byte[] decodedString = Base64.decode(path, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
     }
 }

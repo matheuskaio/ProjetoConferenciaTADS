@@ -6,6 +6,5 @@ import control.Lote;
 
 public interface TelaInitConferenceListener {
     public void openTelaAddLote();
-    public void finalizar();
     public void openTelaLote(Lote lote);
 }
