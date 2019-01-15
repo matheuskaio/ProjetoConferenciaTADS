@@ -1,8 +1,9 @@
 package control;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Expedicao {
+public class Expedicao implements Serializable {
     private List<String> cidades;
 
     public void add(String cidade){

@@ -1,9 +1,13 @@
 package com.example.marcio.a3mconf.view.componet;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
@@ -42,9 +46,17 @@ public class CargaListViewAdapter extends BaseAdapter {
         View view = activity.getLayoutInflater().inflate(R.layout.carga_item_list,parent,false);
         TextView nome = view.findViewById(R.id.lista_cargas_personalizada_nome);
         TextView descrica = view.findViewById(R.id.lista_cargas_personalizada_descricao);
+        ImageView imageView = view.findViewById(R.id.lista_cargas_personalizada_imagem);
         Carga carga = cargas.get(position);
         nome.setText(carga.toString());
-        descrica.setText("Descricao");
+        descrica.setText("");
+        imageView.setImageBitmap(getImage(carga.getLotes().get(0).getFotoAltura()));
         return view;
+    }
+    private Bitmap getImage(String path){
+
+        byte[] decodedString = Base64.decode(path, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
     }
 }

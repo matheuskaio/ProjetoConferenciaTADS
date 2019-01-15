@@ -16,12 +16,14 @@ import android.widget.ListView;
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.componet.CargaListViewAdapter;
 import com.example.marcio.a3mconf.view.listeners.TelaConferencesListener;
+import com.example.marcio.a3mconf.view.listeners.TelaInitConferenceListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import control.Carga;
 import control.Conferente;
+import control.Lote;
 
 public class FragmentConferences extends Fragment {
     private Conferente conferente;

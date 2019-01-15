@@ -8,14 +8,14 @@ public class Lote implements Serializable {
     private int altura,lastro;
     private String id,nomeProduto,observacao,fotoAltura,fotoLastro;
 
-    public Lote(int altura, int lastro, String nomeProduto, String observacao) {
+    public Lote(int altura, int lastro, String nomeProduto, String observacao,String fotoAltura,String fotoLastro) {
         this.altura = altura;
         this.lastro = lastro;
         this.nomeProduto = nomeProduto;
         this.observacao = observacao;
         this.id = new Random().nextInt()+"";
-        this.fotoAltura = "altura"+this.id+".png";
-        this.fotoLastro = "lastro"+this.id+".png";
+        this.fotoAltura = fotoAltura;
+        this.fotoLastro = fotoLastro;
     }
 
     public String getId() {

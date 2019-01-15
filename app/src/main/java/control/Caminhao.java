@@ -1,6 +1,8 @@
 package control;
 
-public class Caminhao {
+import java.io.Serializable;
+
+public class Caminhao implements Serializable {
     private String modelo;
     private String placa;
 

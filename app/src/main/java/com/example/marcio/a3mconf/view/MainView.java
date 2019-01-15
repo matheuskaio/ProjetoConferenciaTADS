@@ -1,11 +1,7 @@
 package com.example.marcio.a3mconf.view;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -16,21 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.example.marcio.a3mconf.R;
-import com.example.marcio.a3mconf.view.fragment.FragmentAbout;
-import com.example.marcio.a3mconf.view.fragment.FragmentAddLote;
-import com.example.marcio.a3mconf.view.fragment.FragmentConference;
-import com.example.marcio.a3mconf.view.fragment.FragmentConferences;
-import com.example.marcio.a3mconf.view.fragment.FragmentInitConference;
-import com.example.marcio.a3mconf.view.fragment.FragmentLote;
-import com.example.marcio.a3mconf.view.fragment.FragmentMyConferences;
-import com.example.marcio.a3mconf.view.fragment.FragmentProfile;
-import com.example.marcio.a3mconf.view.fragment.FragmentReport;
-import com.example.marcio.a3mconf.view.listeners.TelaAddLoteListener;
-import com.example.marcio.a3mconf.view.listeners.TelaConferencesListener;
-import com.example.marcio.a3mconf.view.listeners.TelaInitConferenceListener;
+import com.example.marcio.a3mconf.view.fragment.*;
+import com.example.marcio.a3mconf.view.listeners.*;
 
 import control.Carga;
 import control.Conferente;
@@ -43,14 +28,8 @@ public class MainView extends AppCompatActivity
         private Toolbar toolbar;
         private Funcionario funcionario;
         private ActionBarDrawerToggle toggle;
-        private ImageView imageUpload;
         private DrawerLayout drawer;
         private NavigationView navigationView;
-
-        static final int REQUEST_IMAGE_CAPTURE = 1;
-
-        private static final String SERVER_ADDRESS = "localhost/";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,11 +128,6 @@ public class MainView extends AppCompatActivity
         openTela(new FragmentAddLote());
     }
 
-    @Override
-    public void finalizar() {
-        ((Conferente) funcionario).finalizarConferencia();
-
-    }
 
     @Override
     public void openTelaLote(Lote lote) {
@@ -168,25 +142,6 @@ public class MainView extends AppCompatActivity
     public void addLote(Lote lote) {
         ((Conferente) funcionario).addLote(lote);
         openTela(new FragmentInitConference());
-    }
-
-    @Override
-    public void uploadImage(ImageView image) {
-        imageUpload = image;
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageUpload.setImageBitmap(imageBitmap);
-        }
     }
 
     public void openTela(Fragment fragment){
@@ -211,4 +166,8 @@ public class MainView extends AppCompatActivity
         fragmentConference.setArguments(bundleConference);
         openTela(fragmentConference);
     }
+
+
+
+
 }
