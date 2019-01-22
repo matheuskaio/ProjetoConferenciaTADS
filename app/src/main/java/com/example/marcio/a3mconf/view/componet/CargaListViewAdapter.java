@@ -14,8 +14,7 @@ import com.example.marcio.a3mconf.R;
 
 import java.util.List;
 
-import control.Carga;
-import control.Lote;
+import model.Carga;
 
 public class CargaListViewAdapter extends BaseAdapter {
     private final List<Carga> cargas;
@@ -48,9 +47,9 @@ public class CargaListViewAdapter extends BaseAdapter {
         TextView descrica = view.findViewById(R.id.lista_cargas_personalizada_descricao);
         ImageView imageView = view.findViewById(R.id.lista_cargas_personalizada_imagem);
         Carga carga = cargas.get(position);
-        nome.setText(carga.toString());
+        nome.setText(carga.getId()+"");
         descrica.setText("");
-        imageView.setImageBitmap(getImage(carga.getLotes().get(0).getFotoAltura()));
+//        imageView.setImageBitmap(getImage(carga.getLotes().get(0).getFotoAltura()));
         return view;
     }
     private Bitmap getImage(String path){

@@ -1,10 +1,19 @@
-package control;
+package model;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class Expedicao implements Serializable {
     private List<String> cidades;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void add(String cidade){
         this.cidades.add(cidade);

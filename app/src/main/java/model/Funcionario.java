@@ -1,24 +1,24 @@
-package control;
+package model;
+
+import android.util.Log;
+
+import com.google.gson.Gson;
 
 import java.io.Serializable;
 
+import request.RequestFuncionario;
+
 public abstract class Funcionario implements Serializable{
 
-    private String nome,cpf,senha,observarcao,foto;
+    private String nome,cpf,senha,observarcao,foto,tipo;
 
-    public Funcionario logar(String cpf,String senha){
-        if(autenticado(cpf,senha)){
-            return this;
-        }
-        return null;
+    public Funcionario(String cpf, String senha) {
+        this.cpf = cpf;
+        this.senha = senha;
     }
 
-    public boolean autenticado(String cpf,String senha){
-        if(cpf.equals(this.cpf) && senha.equals(this.senha)){
-            return true;
-        }
-        return false;
-    }
+
+    public abstract String autenticado();
 
     public String getNome() {
         return nome;
@@ -58,5 +58,13 @@ public abstract class Funcionario implements Serializable{
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

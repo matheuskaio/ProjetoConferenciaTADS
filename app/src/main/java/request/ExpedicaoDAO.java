@@ -1,4 +1,4 @@
-package model.dao;
+package request;
 
 public class ExpedicaoDAO {
 }
