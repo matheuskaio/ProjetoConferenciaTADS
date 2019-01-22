@@ -1,6 +1,6 @@
 package com.example.marcio.a3mconf.view.listeners;
 
-import control.Carga;
+import model.Carga;
 
 public interface TelaConferencesListener {
     public void openTelaConference(Carga carga);

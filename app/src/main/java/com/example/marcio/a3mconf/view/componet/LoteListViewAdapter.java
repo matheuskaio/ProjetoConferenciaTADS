@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,10 +13,9 @@ import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
 
-import java.io.File;
 import java.util.List;
 
-import control.Lote;
+import model.Lote;
 
 public class LoteListViewAdapter extends BaseAdapter {
     private final List<Lote> lotes;
@@ -54,6 +54,8 @@ public class LoteListViewAdapter extends BaseAdapter {
         return view;
     }
     private Bitmap getImage(String path){
+        path = path.replace(" ","");
+        Log.e("image",path);
 
         byte[] decodedString = Base64.decode(path, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

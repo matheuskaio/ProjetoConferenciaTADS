@@ -1,4 +1,4 @@
-package control;
+package model;
 
 import java.io.Serializable;
 import java.util.Random;
@@ -6,16 +6,16 @@ import java.util.Random;
 public class Lote implements Serializable {
 
     private int altura,lastro;
-    private String id,nomeProduto,observacao,fotoAltura,fotoLastro;
+    private String id,produto,observacao,foto_altura,foto_lastro;
 
     public Lote(int altura, int lastro, String nomeProduto, String observacao,String fotoAltura,String fotoLastro) {
         this.altura = altura;
         this.lastro = lastro;
-        this.nomeProduto = nomeProduto;
+        this.produto = nomeProduto;
         this.observacao = observacao;
         this.id = new Random().nextInt()+"";
-        this.fotoAltura = fotoAltura;
-        this.fotoLastro = fotoLastro;
+        this.foto_altura = fotoAltura;
+        this.foto_lastro = fotoLastro;
     }
 
     public String getId() {
@@ -43,11 +43,11 @@ public class Lote implements Serializable {
     }
 
     public String getNomeProduto() {
-        return nomeProduto;
+        return produto;
     }
 
     public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+        this.produto = nomeProduto;
     }
 
     public String getObservacao() {
@@ -59,19 +59,19 @@ public class Lote implements Serializable {
     }
 
     public String getFotoAltura() {
-        return fotoAltura;
+        return foto_altura;
     }
 
     public void setFotoAltura(String fotoAltura) {
-        this.fotoAltura = fotoAltura;
+        this.foto_altura = fotoAltura;
     }
 
     public String getFotoLastro() {
-        return fotoLastro;
+        return foto_lastro;
     }
 
     public void setFotoLastro(String fotoLastro) {
-        this.fotoLastro = fotoLastro;
+        this.foto_lastro = fotoLastro;
     }
     public String getDimensao(){
         return altura + " de altura por " + lastro + " de lastro";
@@ -79,7 +79,7 @@ public class Lote implements Serializable {
 
     @Override
     public String toString() {
-        return nomeProduto +
+        return produto +
                 "(" + altura +
             "/" + lastro +
                 ')';

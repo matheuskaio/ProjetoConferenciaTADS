@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,10 +18,10 @@ import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.fragment.*;
 import com.example.marcio.a3mconf.view.listeners.*;
 
-import control.Carga;
-import control.Conferente;
-import control.Funcionario;
-import control.Lote;
+import model.Carga;
+import model.Conferente;
+import model.Funcionario;
+import model.Lote;
 
 public class MainView extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TelaInitConferenceListener,TelaAddLoteListener,TelaConferencesListener {
@@ -45,7 +46,7 @@ public class MainView extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        funcionario = new Conferente();
+        funcionario = (Funcionario) getIntent().getSerializableExtra("funcionario");
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 

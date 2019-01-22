@@ -1,14 +1,15 @@
-package model;
+package request;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class Conection {
-    public static final String URL = "http://10.0.0.108/marcio/serverandroid/testeserver.php";
+public class Connection {
+    public static final String URL = "http://10.192.3.20/Atividades/ServerAndroid/";
 
     public static String postDados(String urlUsuario, String parametrosUsuario) {
         URL url;
@@ -63,5 +64,8 @@ public class Conection {
                 connection.disconnect();
             }
         }
+
+
     }
+
 }

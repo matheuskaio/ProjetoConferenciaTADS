@@ -1,26 +1,39 @@
-package control;
+package model;
+
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import request.RequestCarga;
+import request.RequestLote;
+
 public class Carga implements Serializable {
-    private String id;
+    private int id;
     private Conferente conferente;
     private Expedicao expedicao;
     private List<Lote> lotes;
 
     public Carga(Conferente conferente){
-        this.id = "id1";
         this.lotes = new ArrayList<>();
         this.conferente = conferente;
+        this.id = gerarId();
     }
 
-    public String getId() {
+    private  int gerarId(){
+        return (int) new Date().getTime();
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

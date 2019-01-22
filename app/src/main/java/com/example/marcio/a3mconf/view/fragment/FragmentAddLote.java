@@ -14,6 +14,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +28,15 @@ import com.example.marcio.a3mconf.view.listeners.TelaAddLoteListener;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import control.Conferente;
-import control.Lote;
+import model.Conferente;
+import model.Lote;
+import request.Connection;
+import request.Solicita;
 
 public class FragmentAddLote extends Fragment {
 
@@ -60,10 +65,10 @@ public class FragmentAddLote extends Fragment {
         });
 
         imageAltura = view.findViewById(R.id.imageAlturaUpload);
-        pathImagerAltura = selectedImageListener(imageAltura,true);
+        selectedImageListener(imageAltura,true);
 
         imageLastro = view.findViewById(R.id.imageLastroUpload);
-        pathImagerLastro = selectedImageListener(imageLastro,false);
+        selectedImageListener(imageLastro,false);
 
 
         return view;
@@ -92,8 +97,7 @@ public class FragmentAddLote extends Fragment {
         setPic(imageView,altura);
     }
 
-    private String selectedImageListener(final ImageView image, final boolean altura){
-        final String r = null;
+    private void selectedImageListener(final ImageView image, final boolean altura){
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +105,6 @@ public class FragmentAddLote extends Fragment {
                 dispatchTakePictureIntent(altura);
             }
         });
-        return r;
     }
 
     private File createImageFile() throws IOException {
@@ -178,12 +181,15 @@ public class FragmentAddLote extends Fragment {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); //bm is the bitmap object
         byte[] b = baos.toByteArray();
+
         if (altura){
             pathImagerAltura = Base64.encodeToString(b, Base64.DEFAULT);
         }else {
             pathImagerLastro = Base64.encodeToString(b, Base64.DEFAULT);
         }
         imageView.setImageBitmap(bitmap);
+
+
     }
 
 }
