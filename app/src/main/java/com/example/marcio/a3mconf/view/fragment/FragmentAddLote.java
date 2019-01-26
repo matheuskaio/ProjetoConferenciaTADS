@@ -14,7 +14,6 @@ import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,24 +22,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
-import com.example.marcio.a3mconf.view.listeners.TelaAddLoteListener;
+import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import model.Conferente;
 import model.Lote;
-import request.Connection;
-import request.Solicita;
 
 public class FragmentAddLote extends Fragment {
 
-    private TelaAddLoteListener listener;
+    private TrocaDeTelasListener listener;
     private ImageView imageAltura,imageLastro, imageView;
     private Button btnAdd;
     private Conferente conferente;
@@ -87,7 +82,7 @@ public class FragmentAddLote extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (TelaAddLoteListener) context;
+        listener = (TrocaDeTelasListener) context;
     }
 
     @Override

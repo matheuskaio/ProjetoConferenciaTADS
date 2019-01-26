@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class Connection {
-    public static final String URL = "http://10.192.3.20/Atividades/ServerAndroid/";
+    public static final String URL = "http://10.0.0.150/Atividades/ServerAndroid/";
 
     public static String postDados(String urlUsuario, String parametrosUsuario) {
         URL url;

@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -21,10 +20,12 @@ import com.example.marcio.a3mconf.view.listeners.*;
 import model.Carga;
 import model.Conferente;
 import model.Funcionario;
+import model.Gerente;
 import model.Lote;
+import model.Motorista;
 
 public class MainView extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TelaInitConferenceListener,TelaAddLoteListener,TelaConferencesListener {
+        implements NavigationView.OnNavigationItemSelectedListener,TrocaDeTelasListener {
 
         private Toolbar toolbar;
         private Funcionario funcionario;
@@ -47,21 +48,35 @@ public class MainView extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         funcionario = (Funcionario) getIntent().getSerializableExtra("funcionario");
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         setSupportActionBar(toolbar);
-
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        if(funcionario instanceof Conferente){
+            ocultarItemMenu();
+        }else if(funcionario instanceof Motorista){
+            ocultarItemMenu();
+        }
+        openTela(new FragmentHome());
 
     }
 
+    private void ocultarItemMenu(){
+        MenuItem addFunc,relatorio,conferencias;
+        addFunc         = navigationView.getMenu().findItem(R.id.nav_add_funcionario);
+        conferencias    = navigationView.getMenu().findItem(R.id.nav_conferences);
+        relatorio       = navigationView.getMenu().findItem(R.id.nav_report);
+
+        addFunc.setVisible(false);
+        conferencias.setVisible(false);
+        relatorio.setVisible(false);
+    }
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -85,6 +100,7 @@ public class MainView extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
@@ -97,10 +113,14 @@ public class MainView extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case R.id.nav_profile:
                 // Handle the camera action
                 openTela(new FragmentProfile());
+                break;
+            case R.id.nav_add_funcionario:
+                openTela(new FragmentAddFunc());
                 break;
             case R.id.nav_init_conference:
                 openTela(new FragmentInitConference());
@@ -140,6 +160,11 @@ public class MainView extends AppCompatActivity
     }
 
     @Override
+    public void openTelaHome() {
+        openTela(new FragmentHome());
+    }
+
+    @Override
     public void addLote(Lote lote) {
         ((Conferente) funcionario).addLote(lote);
         openTela(new FragmentInitConference());
@@ -167,8 +192,5 @@ public class MainView extends AppCompatActivity
         fragmentConference.setArguments(bundleConference);
         openTela(fragmentConference);
     }
-
-
-
 
 }

@@ -41,7 +41,6 @@ public class RequestCarga {
 
         try {
             String str = new Solicita("table=carga").execute(Connection.URL+"select.php").get();
-            Log.e("Select",str);
             return str;
         } catch (ExecutionException e) {
             e.printStackTrace();

@@ -44,7 +44,7 @@ public class LoginView extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FuncionarioControl funcionarioControl = new FuncionarioControl();
-                String msg = funcionarioControl.altenticado(/*cpf.getText().toString()*/"11111111111",/*password.getText().toString()*/"12345");
+                String msg = funcionarioControl.altenticado(/*cpf.getText().toString()*/"11111111112",/*password.getText().toString()*/"123");
                 if(msg==null){
                     Intent intent = new Intent(LoginView.this,MainView.class);
                     intent.putExtra("funcionario",funcionarioControl.logar());

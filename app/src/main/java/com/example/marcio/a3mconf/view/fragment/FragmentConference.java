@@ -13,14 +13,14 @@ import android.widget.ListView;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.componet.LoteListViewAdapter;
-import com.example.marcio.a3mconf.view.listeners.TelaInitConferenceListener;
+import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 
 import model.Carga;
 import model.Lote;
 
 public class FragmentConference extends Fragment {
     private Carga carga;
-    private TelaInitConferenceListener listener;
+    private TrocaDeTelasListener listener;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +43,6 @@ public class FragmentConference extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (TelaInitConferenceListener) context;
+        listener = (TrocaDeTelasListener) context;
     }
 }

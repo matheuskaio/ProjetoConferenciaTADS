@@ -14,8 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
+import com.squareup.picasso.Picasso;
 
 import model.Lote;
+import request.Connection;
 
 public class FragmentLote extends Fragment {
     @Nullable
@@ -33,9 +35,13 @@ public class FragmentLote extends Fragment {
         name.setText(lote.getNomeProduto());
         altura.setText(lote.getAltura()+"");
         lastro.setText(lote.getLastro()+"");
-        imageAltura.setImageBitmap(getImage(lote.getFotoAltura()));
-        imageLastro.setImageBitmap(getImage(lote.getFotoLastro()));
-
+        if(lote.getFotoAltura().length()<200){
+            Picasso.get().load(Connection.URL+lote.getFotoAltura()+".jpg").into(imageAltura);
+            Picasso.get().load(Connection.URL+lote.getFotoLastro()+".jpg").into(imageLastro);
+        }else{
+            imageAltura.setImageBitmap(getImage(lote.getFotoAltura()));
+            imageLastro.setImageBitmap(getImage(lote.getFotoLastro()));
+        }
         return view;
     }
     private Bitmap getImage(String path){
@@ -44,5 +50,6 @@ public class FragmentLote extends Fragment {
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
     }
+
 
 }

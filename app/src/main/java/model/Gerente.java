@@ -12,10 +12,21 @@ public class Gerente extends Funcionario {
         super(cpf, senha);
     }
 
+
+    public Gerente(String nome, String cpf, String senha, Perfil perfil) {
+        super(nome, cpf, senha, perfil);
+    }
+
+    public Gerente(String nome, String cpf, String senha, String foto, Perfil perfil) {
+        super(nome, cpf, senha, foto, perfil);
+    }
+
     public void gerarRelatorio(){
 
     }
-
+    public void cadastrarFuncionario(Funcionario funcionario){
+        new RequestFuncionario().insert(new Gson().toJson(funcionario));
+    }
 
     @Override
     public String autenticado() {

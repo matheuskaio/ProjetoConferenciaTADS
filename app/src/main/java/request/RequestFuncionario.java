@@ -23,7 +23,9 @@ public class RequestFuncionario{
         new Solicita(parametros).execute(Connection.URL+"insertFuncionario.php");
     }
     public void insert(String data){
-        parametros = data;
+        parametros = "funcionario="+data;
+        Log.e("Funcionario",parametros);
+        new Solicita(parametros).execute(Connection.URL+"insertFuncionario.php");
     }
 
     public String selecte(){
