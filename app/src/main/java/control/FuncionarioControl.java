@@ -4,6 +4,7 @@ import model.Conferente;
 import model.Funcionario;
 import model.Gerente;
 import model.Motorista;
+import model.Perfil;
 
 public class FuncionarioControl {
     private Funcionario funcionario;
@@ -24,5 +25,23 @@ public class FuncionarioControl {
     }
     public Funcionario logar(){
         return funcionario;
+    }
+    public void addFuncionario(String nome,String cpf, String senha,Perfil perfil){
+        if(perfil == Perfil.CONFERENTE){
+            ((Gerente) funcionario).cadastrarFuncionario(new Conferente(nome,cpf,senha,perfil));
+        }else if(perfil == Perfil.MOTORISTA){
+            ((Gerente) funcionario).cadastrarFuncionario(new Motorista(nome,cpf,senha,perfil));
+        }else if(perfil == Perfil.GERENTE){
+            ((Gerente) funcionario).cadastrarFuncionario(new Gerente(nome,cpf,senha,perfil));
+        }
+    }
+    public void addFuncionario(String nome,String cpf, String senha,Perfil perfil, String foto){
+        if(perfil == Perfil.CONFERENTE){
+            ((Gerente) funcionario).cadastrarFuncionario(new Conferente(nome,cpf,senha,foto,perfil));
+        }else if(perfil == Perfil.MOTORISTA){
+            ((Gerente) funcionario).cadastrarFuncionario(new Motorista(nome,cpf,senha,foto,perfil));
+        }else if(perfil == Perfil.GERENTE){
+            ((Gerente) funcionario).cadastrarFuncionario(new Gerente(nome,cpf,senha,foto,perfil));
+        }
     }
 }

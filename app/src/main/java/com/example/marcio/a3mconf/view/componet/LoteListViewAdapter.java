@@ -12,10 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import model.Lote;
+import request.Connection;
 
 public class LoteListViewAdapter extends BaseAdapter {
     private final List<Lote> lotes;
@@ -50,12 +52,15 @@ public class LoteListViewAdapter extends BaseAdapter {
         Lote lote = lotes.get(position);
         nome.setText(lote.toString());
         descrica.setText(lote.getObservacao());
-        image.setImageBitmap(getImage(lote.getFotoAltura()));
+        if(lote.getFotoAltura().length()<200){
+            Picasso.get().load(Connection.URL+lote.getFotoAltura()+".jpg").into(image);
+        }else{
+            image.setImageBitmap(getImage(lote.getFotoAltura()));
+        }
         return view;
     }
     private Bitmap getImage(String path){
         path = path.replace(" ","");
-        Log.e("image",path);
 
         byte[] decodedString = Base64.decode(path, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);

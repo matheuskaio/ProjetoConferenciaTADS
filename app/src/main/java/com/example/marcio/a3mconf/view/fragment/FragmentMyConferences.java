@@ -9,20 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.componet.CargaListViewAdapter;
-import com.example.marcio.a3mconf.view.componet.LoteListViewAdapter;
-import com.example.marcio.a3mconf.view.listeners.TelaConferencesListener;
+import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 
 import model.Carga;
 import model.Conferente;
 
 public class FragmentMyConferences extends Fragment {
     private Conferente conferente;
-    private TelaConferencesListener listener;
+    private TrocaDeTelasListener listener;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,6 +40,6 @@ public class FragmentMyConferences extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (TelaConferencesListener) context;
+        listener = (TrocaDeTelasListener) context;
     }
 }

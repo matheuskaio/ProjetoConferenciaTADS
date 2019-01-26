@@ -10,13 +10,29 @@ import request.RequestFuncionario;
 
 public abstract class Funcionario implements Serializable{
 
-    private String nome,cpf,senha,observarcao,foto,tipo;
+    private String nome,cpf,senha,foto;
+    private Perfil perfil;
+
 
     public Funcionario(String cpf, String senha) {
         this.cpf = cpf;
         this.senha = senha;
     }
 
+    public Funcionario(String nome, String cpf, String senha, Perfil perfil) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.perfil = perfil;
+    }
+
+    public Funcionario(String nome, String cpf, String senha, String foto, Perfil perfil) {
+        this.nome = nome;
+        this.cpf = cpf;
+        this.senha = senha;
+        this.foto = foto;
+        this.perfil = perfil;
+    }
 
     public abstract String autenticado();
 
@@ -44,14 +60,6 @@ public abstract class Funcionario implements Serializable{
         this.senha = senha;
     }
 
-    public String getObservarcao() {
-        return observarcao;
-    }
-
-    public void setObservarcao(String observarcao) {
-        this.observarcao = observarcao;
-    }
-
     public String getFoto() {
         return foto;
     }
@@ -60,11 +68,11 @@ public abstract class Funcionario implements Serializable{
         this.foto = foto;
     }
 
-    public String getTipo() {
-        return tipo;
+    public Perfil getPerfil() {
+        return perfil;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
     }
 }

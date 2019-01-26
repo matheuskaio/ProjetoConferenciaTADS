@@ -12,16 +12,17 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.componet.LoteListViewAdapter;
-import com.example.marcio.a3mconf.view.listeners.TelaInitConferenceListener;
+import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 
 import model.Conferente;
 import model.Lote;
 
 public class FragmentInitConference extends Fragment {
-    private TelaInitConferenceListener listener;
+    private TrocaDeTelasListener listener;
     private Conferente conferente;
     TextView mTextView;
 
@@ -35,8 +36,9 @@ public class FragmentInitConference extends Fragment {
 
        conferente = (Conferente) getArguments().getSerializable("funcionario");
        conferente.iniciarCoferencia();
+       LoteListViewAdapter lotesAdapter= new LoteListViewAdapter(conferente.getCarga().getLotes(),getActivity());
 
-
+       final ListView lista = view.findViewById(R.id.lista_de_lotes);
        Button btnOpenTela = view.findViewById(R.id.add_lote);
        Button btnFinalizar = view.findViewById(R.id.finalizar_conferencia);
        btnOpenTela.setOnClickListener(new View.OnClickListener() {
@@ -45,13 +47,16 @@ public class FragmentInitConference extends Fragment {
                listener.openTelaAddLote();
            }
        });
+
        btnFinalizar.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                conferente.finalizarConferencia();
+               conferente.iniciarCoferencia();
+               lista.setAdapter(null);
+               Toast.makeText(getContext(),"Carga registrada com sucesso!",Toast.LENGTH_LONG).show();
            }
        });
-       ListView lista = view.findViewById(R.id.lista_de_lotes);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,7 +64,7 @@ public class FragmentInitConference extends Fragment {
 
             }
         });
-       LoteListViewAdapter lotesAdapter = new LoteListViewAdapter(conferente.getCarga().getLotes(),getActivity());
+
        lista.setAdapter(lotesAdapter);
 
        return view;
@@ -68,7 +73,7 @@ public class FragmentInitConference extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (TelaInitConferenceListener) context;
+        listener = (TrocaDeTelasListener) context;
     }
 
 }

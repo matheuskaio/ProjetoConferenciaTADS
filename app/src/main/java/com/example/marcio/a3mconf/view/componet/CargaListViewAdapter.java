@@ -11,10 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import model.Carga;
+import request.Connection;
 
 public class CargaListViewAdapter extends BaseAdapter {
     private final List<Carga> cargas;
@@ -45,11 +47,16 @@ public class CargaListViewAdapter extends BaseAdapter {
         View view = activity.getLayoutInflater().inflate(R.layout.carga_item_list,parent,false);
         TextView nome = view.findViewById(R.id.lista_cargas_personalizada_nome);
         TextView descrica = view.findViewById(R.id.lista_cargas_personalizada_descricao);
-        ImageView imageView = view.findViewById(R.id.lista_cargas_personalizada_imagem);
+        ImageView image = view.findViewById(R.id.lista_cargas_personalizada_imagem);
         Carga carga = cargas.get(position);
         nome.setText(carga.getId()+"");
         descrica.setText("");
-//        imageView.setImageBitmap(getImage(carga.getLotes().get(0).getFotoAltura()));
+        String foto = carga.getLotes().get(0).getFotoAltura();
+        if(foto.length()<200){
+            Picasso.get().load(Connection.URL+foto+".jpg").into(image);
+        }else{
+            image.setImageBitmap(getImage(foto));
+        }
         return view;
     }
     private Bitmap getImage(String path){

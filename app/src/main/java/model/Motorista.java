@@ -11,6 +11,14 @@ public class Motorista extends Funcionario {
         super(cpf, senha);
     }
 
+    public Motorista(String nome, String cpf, String senha, Perfil perfil) {
+        super(nome, cpf, senha, perfil);
+    }
+
+    public Motorista(String nome, String cpf, String senha, String foto, Perfil perfil) {
+        super(nome, cpf, senha, foto, perfil);
+    }
+
     public void verResumoDaCarga(){
 
     }

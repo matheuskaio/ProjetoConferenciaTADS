@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingHorizontal="40dp">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_account_circle"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        />
+    <android.support.design.widget.TextInputLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+
+        <EditText
+            android:id="@+id/name_func"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Nome"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@color/white"
+        >
+
+        <EditText
+            android:id="@+id/cpf_fun"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="CPF"
+            android:inputType="textPersonName"
+            />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginBottom="20dp">
+
+        <EditText
+            android:id="@+id/senha_func"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Senha"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/group_profile"
+        android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/radio_conferente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conferente"
+                />
+            <RadioButton
+                android:id="@+id/radio_motorista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Motorista" />
+    </RadioGroup>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_cadastro"
+        android:text="cadastrar"/>
+</LinearLayout>

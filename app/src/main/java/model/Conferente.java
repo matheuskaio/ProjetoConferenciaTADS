@@ -21,6 +21,14 @@ public class Conferente extends Funcionario {
         super(cpf, senha);
     }
 
+    public Conferente(String nome, String cpf, String senha, Perfil perfil) {
+        super(nome, cpf, senha, perfil);
+    }
+
+    public Conferente(String nome, String cpf, String senha, String foto, Perfil perfil) {
+        super(nome, cpf, senha, foto, perfil);
+    }
+
     public Carga getCarga() {
         return carga;
     }
