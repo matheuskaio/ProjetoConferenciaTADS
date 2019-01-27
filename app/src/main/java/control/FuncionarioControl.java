@@ -15,11 +15,14 @@ public class FuncionarioControl {
         list[2] = new Motorista(login,senha);
         String str = null;
         for (int i = 0; i < 3; i++){
-            str = list[i].autenticado();
-            if(str == null) {
-                funcionario = list[i];
+             funcionario = list[i].autenticado();
+             if (funcionario == null){
+                 str = "cpf não encontrado";
+             }else if(funcionario.getNome() == null){
+                 str =  "senha incorreta";
+             }else{
                 break;
-            }
+             }
         }
         return str;
     }

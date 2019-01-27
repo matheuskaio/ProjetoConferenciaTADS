@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import request.RequestCarga;
+import request.RequestExpedicao;
 import request.RequestFuncionario;
 import request.RequestLote;
 
@@ -67,21 +68,22 @@ public class Conferente extends Funcionario {
         return  cargas;
     }
 
-
+    public void cadastraExpedicao(Expedicao expedicao){
+        new RequestExpedicao().insert(new Gson().toJson(expedicao));
+    }
     @Override
-    public String autenticado() {
-
-        String r,str =new RequestFuncionario().get(this.getCpf())+"";
+    public Conferente autenticado() {
+        Conferente conferente;
+        String str =new RequestFuncionario().get(this.getCpf())+"";
         if(str.length()<25){
-            r = "O cpf informado não foi encontrado";
+            conferente = this;
         }else{
-            Log.e("Retorno",str);
-            Conferente conferente = new Gson().fromJson(str,Conferente.class);
+            conferente = new Gson().fromJson(str,Conferente.class);
             if(conferente.getSenha().equals(this.getSenha())){
-                return null;
+                return conferente;
             }
-            r = "Senha incorreta";
+            conferente = this;
         }
-        return r;
+        return conferente;
     }
 }

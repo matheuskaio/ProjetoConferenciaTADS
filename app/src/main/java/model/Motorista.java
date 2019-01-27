@@ -25,19 +25,19 @@ public class Motorista extends Funcionario {
 
 
     @Override
-    public String autenticado() {
-
-        String r,str =new RequestFuncionario().get(this.getCpf());
+    public Motorista autenticado() {
+        Motorista motorista;
+        String str =new RequestFuncionario().get(this.getCpf());
         if(str.length()<25){
-            r = "O cpf informado não foi encontrado";
+            motorista = null;
         }else{
             Log.e("Retorno",str);
-            Conferente conferente = new Gson().fromJson(str,Conferente.class);
-            if(conferente.getSenha().equals(this.getSenha())){
-                return null;
+            motorista = new Gson().fromJson(str,Motorista.class);
+            if(motorista.getSenha().equals(this.getSenha())){
+                return motorista;
             }
-            r = "Senha incorreta";
+            motorista = this;
         }
-        return r;
+        return motorista;
     }
 }
