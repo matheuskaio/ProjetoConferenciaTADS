@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_menu_person_add"
             android:title="Adicionar Funcionário" />
         <item
+            android:id="@+id/nav_add_expedicao"
+            android:icon="@drawable/ic_menu_add_location"
+            android:title="Adicionar Expedição" />
+        <item
             android:id="@+id/nav_init_conference"
             android:icon="@drawable/ic_menu_local_grocery_store"
             android:title="Iniciar Conferência" />

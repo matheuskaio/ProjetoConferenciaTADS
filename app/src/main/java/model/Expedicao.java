@@ -6,6 +6,12 @@ import java.util.List;
 public class Expedicao implements Serializable {
     private List<String> cidades;
     private String id;
+    private String nome;
+
+    public Expedicao(List<String> cidades, String nome) {
+        this.cidades = cidades;
+        this.nome = nome;
+    }
 
     public String getId() {
         return id;
@@ -13,6 +19,14 @@ public class Expedicao implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public void add(String cidade){

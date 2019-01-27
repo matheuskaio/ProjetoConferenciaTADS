@@ -10,8 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.HeaderViewListAdapter;
+import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.fragment.*;
@@ -58,6 +62,9 @@ public class MainView extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        TextView nameFuncionario = navigationView.getHeaderView(0).findViewById(R.id.name_user);
+        nameFuncionario.setText(funcionario.getNome());
         if(funcionario instanceof Conferente){
             ocultarItemMenu();
         }else if(funcionario instanceof Motorista){
@@ -121,6 +128,9 @@ public class MainView extends AppCompatActivity
                 break;
             case R.id.nav_add_funcionario:
                 openTela(new FragmentAddFunc());
+                break;
+            case R.id.nav_add_expedicao:
+                openTela(new FragmentAddExpedicao());
                 break;
             case R.id.nav_init_conference:
                 openTela(new FragmentInitConference());

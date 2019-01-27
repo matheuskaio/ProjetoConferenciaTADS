@@ -29,19 +29,19 @@ public class Gerente extends Funcionario {
     }
 
     @Override
-    public String autenticado() {
-
-        String r,str =new RequestFuncionario().get(this.getCpf());
+    public Gerente autenticado() {
+        Gerente gerente;
+        String str =new RequestFuncionario().get(this.getCpf());
         if(str.length()<25){
-            r = "O cpf informado não foi encontrado";
+            gerente = null;
         }else{
             Log.e("Retorno",str);
-            Gerente gerente = new Gson().fromJson(str,Gerente.class);
+            gerente = new Gson().fromJson(str,Gerente.class);
             if(gerente.getSenha().equals(this.getSenha())){
-                return null;
+                return gerente;
             }
-            r = "Senha incorreta";
+            gerente = this;
         }
-        return r;
+        return gerente;
     }
 }

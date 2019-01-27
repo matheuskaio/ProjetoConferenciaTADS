@@ -34,7 +34,7 @@ public abstract class Funcionario implements Serializable{
         this.perfil = perfil;
     }
 
-    public abstract String autenticado();
+    public abstract Funcionario autenticado();
 
     public String getNome() {
         return nome;
