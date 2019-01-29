@@ -34,6 +34,14 @@ public class LoginView extends AppCompatActivity {
         password = findViewById(R.id.password);
         mensage = findViewById(R.id.mensage);
 
+        cpf.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    mensage.setText(FuncionarioControl.getIstace().validarCPF(cpf.getText().toString()));
+                }
+            }
+        });
         SimpleMaskFormatter simpleMaskFormatter = new SimpleMaskFormatter("NNN.NNN.NNN-NN");
         MaskTextWatcher maskTextWatcher = new MaskTextWatcher(cpf,simpleMaskFormatter);
         cpf.addTextChangedListener(maskTextWatcher);
@@ -41,15 +49,18 @@ public class LoginView extends AppCompatActivity {
         logar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FuncionarioControl funcionarioControl = FuncionarioControl.getIstace();
-                String msg = funcionarioControl.altenticado(cpf.getText().toString(),password.getText().toString());
-                if(msg==null){
-                    Intent intent = new Intent(LoginView.this,MainView.class);
-                    intent.putExtra("funcionario",funcionarioControl.logar());
-                    startActivity(intent);
+                if(mensage.getText().toString().isEmpty()){
 
-                }else{
-                    mensage.setText(msg);
+                    FuncionarioControl funcionarioControl = FuncionarioControl.getIstace();
+                    String msg = funcionarioControl.altenticado(cpf.getText().toString(),password.getText().toString());
+                    if(msg==null){
+                        Intent intent = new Intent(LoginView.this,MainView.class);
+                        intent.putExtra("funcionario",funcionarioControl.logar());
+                        startActivity(intent);
+
+                    }else{
+                        mensage.setText(msg);
+                    }
                 }
             }
         });

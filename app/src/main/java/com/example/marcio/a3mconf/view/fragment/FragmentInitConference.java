@@ -27,12 +27,13 @@ import model.Caminhao;
 import model.Conferente;
 import model.Expedicao;
 import model.Lote;
+import model.Motorista;
 
 public class FragmentInitConference extends Fragment {
     private TrocaDeTelasListener listener;
     private Conferente conferente;
     TextView mTextView;
-    private Spinner expedicoes,caminhoes;
+    private Spinner expedicoes,caminhoes,motoristas;
 
 
     @Nullable
@@ -49,6 +50,7 @@ public class FragmentInitConference extends Fragment {
 
         expedicoes   = view.findViewById(R.id.spinner_expedicoes);
         caminhoes    = view.findViewById(R.id.spinner_caminhoes);
+        motoristas   = view.findViewById(R.id.spinner_motorista);
 
         Button btnOpenTela = view.findViewById(R.id.add_lote);
         Button btnFinalizar = view.findViewById(R.id.finalizar_conferencia);
@@ -66,13 +68,17 @@ public class FragmentInitConference extends Fragment {
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+
                conferente.getCarga().setExpedicao((Expedicao) expedicoes.getSelectedItem());
-               conferente.finalizarConferencia();
+               conferente.getCarga().setCaminhao((Caminhao) caminhoes.getSelectedItem());
+               conferente.finalizarConferencia(((Motorista) motoristas.getSelectedItem()).getCpf());
+
                Toast.makeText(getContext(),"Carga registrada com sucesso!",Toast.LENGTH_SHORT).show();
                lista.setAdapter(null);
                conferente.iniciarCoferencia();
            }
         });
+
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,11 +92,18 @@ public class FragmentInitConference extends Fragment {
                 listExpedicoes);
         spinnerExpedicoesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         expedicoes.setAdapter(spinnerExpedicoesArrayAdapter);
+
         List<Caminhao> listCaminhoes = conferente.caminhoes();
         ArrayAdapter<Caminhao> spinnerCaminhoesArrayAdapter = new ArrayAdapter<Caminhao>(getContext(), android.R.layout.simple_spinner_item,
                 listCaminhoes);
         spinnerCaminhoesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         caminhoes.setAdapter(spinnerCaminhoesArrayAdapter);
+
+        List<Motorista> listMotoristas = conferente.motoristas();
+        ArrayAdapter<Motorista> spinnerMotoristaArrayAdapter = new ArrayAdapter<Motorista>(getContext(), android.R.layout.simple_spinner_item,
+                listMotoristas);
+        spinnerMotoristaArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        motoristas.setAdapter(spinnerMotoristaArrayAdapter);
 
 
        return view;

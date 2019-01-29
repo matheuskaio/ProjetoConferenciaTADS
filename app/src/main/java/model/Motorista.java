@@ -4,6 +4,10 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import model.request.RequestCarga;
 import model.request.RequestFuncionario;
 
 public class Motorista extends Funcionario {
@@ -19,8 +23,8 @@ public class Motorista extends Funcionario {
         super(nome, cpf, senha, foto, perfil);
     }
 
-    public void verResumoDaCarga(){
-
+    public List<Carga> myCargas(){
+        return new RequestCarga().selecte(this);
     }
 
 }

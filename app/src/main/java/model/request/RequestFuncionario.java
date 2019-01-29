@@ -3,9 +3,12 @@ package model.request;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import model.Caminhao;
 import model.Conferente;
 import model.Funcionario;
 import model.Gerente;
@@ -20,13 +23,26 @@ public class RequestFuncionario{
         Log.e("Funcionario",parametros);
         new Solicita(parametros).execute(Connection.URL+"insertFuncionario.php");
     }
-
-    public Funcionario get(String cpf) throws CPFNotFoundException {
-        parametros = "cpf="+cpf;
+    public List<Motorista> select(char perfil){
         String str = null;
         try {
-            str = new Solicita(parametros).execute(Connection.URL+"getFuncionario.php").get();
-            Log.e("R","chegou "+str+" <-");
+            str = new Solicita("perfil="+perfil).execute(Connection.URL+"selectMotorista.php").get();
+            if(str.length()<25){
+                return null;
+            }
+            return new Gson().fromJson(str,new TypeToken<List<Motorista>>(){}.getType());
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Funcionario get(String cpf) throws CPFNotFoundException {
+        String str = null;
+        try {
+            str = new Solicita("cpf="+cpf).execute(Connection.URL+"getFuncionario.php").get();
             if(str.length()<25){
                 throw new CPFNotFoundException();
             }

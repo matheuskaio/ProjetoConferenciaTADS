@@ -36,9 +36,20 @@
                 />
         </RelativeLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_edit_text">
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/spinner_motorista"
+            />
+    </RelativeLayout>
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="260dp"
         android:background="@drawable/bg_edit_text"
         android:id="@+id/lista_de_lotes"/>
     <RelativeLayout

@@ -1,5 +1,8 @@
 package control;
 
+import android.widget.EditText;
+
+import model.Caminhao;
 import model.Conferente;
 import model.Funcionario;
 import model.Gerente;
@@ -21,6 +24,7 @@ public class FuncionarioControl {
         }
         return funcionarioControl;
     }
+
     public String altenticado(String login,String senha){
         String str = null;
         login = replaceCPF(login);
@@ -49,6 +53,7 @@ public class FuncionarioControl {
             ((Gerente) funcionario).cadastrarFuncionario(new Gerente(nome,cpf,senha,perfil));
         }
     }
+
     public void addFuncionario(String nome,String cpf, String senha,char perfil, String foto){
         cpf = replaceCPF(cpf);
         if(perfil == 'C'){
@@ -60,11 +65,23 @@ public class FuncionarioControl {
         }
     }
 
+    public void cadastrarCaminhao(String modelo,String placa){
+        ((Conferente) funcionario).cadastrarCaminhao(new Caminhao(modelo,placa));
+    }
+
     private String replaceCPF(String cpf){
         cpf = cpf.replace(".","");
         cpf = cpf.replace("-","");
         return cpf;
     }
 
-
+    public String validarCPF(String cpf){
+        if(cpf.isEmpty()){
+            return "Informe um cpf";
+        }
+        if(cpf.length()<14){
+            return "CPF muito curto";
+        }
+        return null;
+    }
 }

@@ -76,12 +76,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cancelar"
-            android:id="@+id/cancelar_cadastro_expedicao"/>
+            android:id="@+id/cancelar_cadastro_caminhao"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadastrar"
-            android:id="@+id/cardastrar_expedicao"/>
+            android:id="@+id/cadastrar_caminhao"/>
     </LinearLayout>
 </LinearLayout>
 </ScrollView>
