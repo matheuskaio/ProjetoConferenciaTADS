@@ -67,4 +67,9 @@ public abstract class Funcionario implements Serializable{
     public void setPerfil(char perfil) {
         this.perfil = perfil;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

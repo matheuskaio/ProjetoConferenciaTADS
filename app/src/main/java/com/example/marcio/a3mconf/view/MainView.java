@@ -143,6 +143,9 @@ public class MainView extends AppCompatActivity
             case R.id.nav_report:
                 openTela(new FragmentReport());
                 break;
+            case R.id.nav_my_cargas:
+                openTela(new FragmentMyCargas());
+                break;
             case R.id.nav_about:
                 openTela(new FragmentAbout());
                 break;

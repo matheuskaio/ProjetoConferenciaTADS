@@ -6,6 +6,11 @@ public class Caminhao implements Serializable {
     private String modelo;
     private String placa;
 
+    public Caminhao(String modelo, String placa) {
+        this.modelo = modelo;
+        this.placa = placa;
+    }
+
     public String getModelo() {
         return modelo;
     }

@@ -45,12 +45,12 @@ public class Conferente extends Funcionario {
         carga.addLote(lote);
     }
 
-    public void finalizarConferencia(){
-        new RequestCarga().insert(carga); carga = null;
+    public void finalizarConferencia(String motorista){
+        new RequestCarga().insert(carga,motorista); carga = null;
     }
 
     public List<Carga> myCargas(){
-        String str = new RequestCarga().selecte(this.getCpf());
+        String str = new RequestCarga().selecte(this);
         if(str.length()<5){
             return new ArrayList<Carga>();
         }
@@ -60,7 +60,7 @@ public class Conferente extends Funcionario {
 
 
     public void cadastraExpedicao(Expedicao expedicao){
-        new RequestExpedicao().insert(new Gson().toJson(expedicao));
+        new RequestExpedicao().insert(expedicao);
     }
 
     public List<Expedicao> expedicaos(){
@@ -70,12 +70,21 @@ public class Conferente extends Funcionario {
         }
         return new Gson().fromJson(str,new TypeToken<List<Expedicao>>(){}.getType());
     }
+
+    public void cadastrarCaminhao(Caminhao caminhao){
+        new RequestCaminhao().insert(caminhao);
+    }
+
     public List<Caminhao> caminhoes(){
         String str = new RequestCaminhao().select();
         if(str.length()<5){
             return new ArrayList<>();
         }
         return new Gson().fromJson(str,new TypeToken<List<Caminhao>>(){}.getType());
+    }
+
+    public List<Motorista> motoristas(){
+        return new RequestFuncionario().select('M');
     }
 
 
