@@ -1,18 +1,15 @@
 package model;
 
-import android.util.Log;
-
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import request.RequestCarga;
-import request.RequestExpedicao;
-import request.RequestFuncionario;
-import request.RequestLote;
+import model.request.RequestCarga;
+import model.request.RequestExpedicao;
+import model.request.RequestFuncionario;
+import model.request.RequestCaminhao;
 
 public class Conferente extends Funcionario {
 
@@ -22,11 +19,11 @@ public class Conferente extends Funcionario {
         super(cpf, senha);
     }
 
-    public Conferente(String nome, String cpf, String senha, Perfil perfil) {
+    public Conferente(String nome, String cpf, String senha, char perfil) {
         super(nome, cpf, senha, perfil);
     }
 
-    public Conferente(String nome, String cpf, String senha, String foto, Perfil perfil) {
+    public Conferente(String nome, String cpf, String senha, String foto, char perfil) {
         super(nome, cpf, senha, foto, perfil);
     }
 
@@ -53,37 +50,35 @@ public class Conferente extends Funcionario {
     }
 
     public List<Carga> myCargas(){
-        return new RequestCarga().selecte(this);
-    }
-
-    public List<Carga> allCargas() {
-        String str= new RequestCarga().selecte();
+        String str = new RequestCarga().selecte(this.getCpf());
         if(str.length()<5){
             return new ArrayList<Carga>();
         }
-        List<Carga> cargas = new Gson().fromJson(str,new TypeToken<List<Carga>>(){}.getType());
-        for (Carga c:cargas){
-            c.setLotes((List<Lote>) new Gson().fromJson(new RequestLote().selectFromCarga(c.getId()+""),new TypeToken<List<Lote>>(){}.getType()));
-        }
-        return  cargas;
+        return new Gson().fromJson(str,new TypeToken<List<Carga>>(){}.getType());
+
     }
+
 
     public void cadastraExpedicao(Expedicao expedicao){
         new RequestExpedicao().insert(new Gson().toJson(expedicao));
     }
-    @Override
-    public Conferente autenticado() {
-        Conferente conferente;
-        String str =new RequestFuncionario().get(this.getCpf())+"";
-        if(str.length()<25){
-            conferente = this;
-        }else{
-            conferente = new Gson().fromJson(str,Conferente.class);
-            if(conferente.getSenha().equals(this.getSenha())){
-                return conferente;
-            }
-            conferente = this;
+
+    public List<Expedicao> expedicaos(){
+        String str = new RequestExpedicao().select();
+        if(str.length()<5){
+            return new ArrayList<>();
         }
-        return conferente;
+        return new Gson().fromJson(str,new TypeToken<List<Expedicao>>(){}.getType());
     }
+    public List<Caminhao> caminhoes(){
+        String str = new RequestCaminhao().select();
+        if(str.length()<5){
+            return new ArrayList<>();
+        }
+        return new Gson().fromJson(str,new TypeToken<List<Caminhao>>(){}.getType());
+    }
+
+
+
+
 }

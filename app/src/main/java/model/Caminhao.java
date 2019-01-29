@@ -21,4 +21,9 @@ public class Caminhao implements Serializable {
     public void setPlaca(String placa) {
         this.placa = placa;
     }
+
+    @Override
+    public String toString() {
+        return placa;
+    }
 }

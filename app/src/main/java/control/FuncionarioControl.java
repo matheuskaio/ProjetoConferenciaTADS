@@ -4,47 +4,67 @@ import model.Conferente;
 import model.Funcionario;
 import model.Gerente;
 import model.Motorista;
-import model.Perfil;
+import model.exceptions.CPFNotFoundException;
+import model.request.RequestFuncionario;
 
 public class FuncionarioControl {
+
     private Funcionario funcionario;
+    private static FuncionarioControl funcionarioControl;
+
+    private FuncionarioControl(){
+
+    }
+    public static FuncionarioControl getIstace(){
+        if(funcionarioControl == null){
+            funcionarioControl = new FuncionarioControl();
+        }
+        return funcionarioControl;
+    }
     public String altenticado(String login,String senha){
-        Funcionario[] list = new Funcionario[3];
-        list[0] = new Conferente(login,senha);
-        list[1] = new Gerente(login,senha);
-        list[2] = new Motorista(login,senha);
         String str = null;
-        for (int i = 0; i < 3; i++){
-             funcionario = list[i].autenticado();
-             if (funcionario == null){
-                 str = "cpf não encontrado";
-             }else if(funcionario.getNome() == null){
-                 str =  "senha incorreta";
-             }else{
-                break;
-             }
+        login = replaceCPF(login);
+        try {
+            funcionario = new RequestFuncionario().get(login);
+            if(!funcionario.getSenha().equals(senha)){
+                str = "Senha incorreta";
+            }
+        } catch (CPFNotFoundException e) {
+            str = "CPF não encontrado";
         }
         return str;
     }
+
     public Funcionario logar(){
         return funcionario;
     }
-    public void addFuncionario(String nome,String cpf, String senha,Perfil perfil){
-        if(perfil == Perfil.CONFERENTE){
+
+    public void addFuncionario(String nome,String cpf, String senha,char perfil){
+        cpf = replaceCPF(cpf);
+        if(perfil == 'C'){
             ((Gerente) funcionario).cadastrarFuncionario(new Conferente(nome,cpf,senha,perfil));
-        }else if(perfil == Perfil.MOTORISTA){
+        }else if(perfil == 'M'){
             ((Gerente) funcionario).cadastrarFuncionario(new Motorista(nome,cpf,senha,perfil));
-        }else if(perfil == Perfil.GERENTE){
+        }else if(perfil == 'G'){
             ((Gerente) funcionario).cadastrarFuncionario(new Gerente(nome,cpf,senha,perfil));
         }
     }
-    public void addFuncionario(String nome,String cpf, String senha,Perfil perfil, String foto){
-        if(perfil == Perfil.CONFERENTE){
+    public void addFuncionario(String nome,String cpf, String senha,char perfil, String foto){
+        cpf = replaceCPF(cpf);
+        if(perfil == 'C'){
             ((Gerente) funcionario).cadastrarFuncionario(new Conferente(nome,cpf,senha,foto,perfil));
-        }else if(perfil == Perfil.MOTORISTA){
+        }else if(perfil == 'M'){
             ((Gerente) funcionario).cadastrarFuncionario(new Motorista(nome,cpf,senha,foto,perfil));
-        }else if(perfil == Perfil.GERENTE){
+        }else if(perfil == 'G'){
             ((Gerente) funcionario).cadastrarFuncionario(new Gerente(nome,cpf,senha,foto,perfil));
         }
     }
+
+    private String replaceCPF(String cpf){
+        cpf = cpf.replace(".","");
+        cpf = cpf.replace("-","");
+        return cpf;
+    }
+
+
 }

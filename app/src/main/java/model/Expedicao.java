@@ -48,4 +48,9 @@ public class Expedicao implements Serializable {
     public int quantidadeDeCidades(){
         return cidades.size();
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

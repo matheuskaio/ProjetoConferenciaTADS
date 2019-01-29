@@ -1,23 +1,16 @@
 package model;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import request.RequestCarga;
-import request.RequestLote;
 
 public class Carga implements Serializable {
     private int id;
     private Conferente conferente;
     private Expedicao expedicao;
     private List<Lote> lotes;
+    private Caminhao caminhao;
 
     public Carga(Conferente conferente){
         this.lotes = new ArrayList<>();
@@ -43,6 +36,14 @@ public class Carga implements Serializable {
 
     public void setConferente(Conferente conferente) {
         this.conferente = conferente;
+    }
+
+    public Caminhao getCaminhao() {
+        return caminhao;
+    }
+
+    public void setCaminhao(Caminhao caminhao) {
+        this.caminhao = caminhao;
     }
 
     public void addLote(Lote lote){

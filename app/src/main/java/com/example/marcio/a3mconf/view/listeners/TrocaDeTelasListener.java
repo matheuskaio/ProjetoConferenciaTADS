@@ -9,5 +9,6 @@ public interface TrocaDeTelasListener {
     public void openTelaAddLote();
     public void openTelaLote(Lote lote);
     public void openTelaHome();
+    public void openTelaNovaConferencia();
 }
 

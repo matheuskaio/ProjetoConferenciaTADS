@@ -3,8 +3,14 @@ package model;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
-import request.RequestFuncionario;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.request.RequestCarga;
+import model.request.RequestFuncionario;
+import model.request.RequestLote;
 
 public class Gerente extends Funcionario {
 
@@ -13,11 +19,11 @@ public class Gerente extends Funcionario {
     }
 
 
-    public Gerente(String nome, String cpf, String senha, Perfil perfil) {
+    public Gerente(String nome, String cpf, String senha, char perfil) {
         super(nome, cpf, senha, perfil);
     }
 
-    public Gerente(String nome, String cpf, String senha, String foto, Perfil perfil) {
+    public Gerente(String nome, String cpf, String senha, String foto, char perfil) {
         super(nome, cpf, senha, foto, perfil);
     }
 
@@ -25,23 +31,16 @@ public class Gerente extends Funcionario {
 
     }
     public void cadastrarFuncionario(Funcionario funcionario){
-        new RequestFuncionario().insert(new Gson().toJson(funcionario));
+        new RequestFuncionario().insert(funcionario);
     }
 
-    @Override
-    public Gerente autenticado() {
-        Gerente gerente;
-        String str =new RequestFuncionario().get(this.getCpf());
-        if(str.length()<25){
-            gerente = null;
-        }else{
-            Log.e("Retorno",str);
-            gerente = new Gson().fromJson(str,Gerente.class);
-            if(gerente.getSenha().equals(this.getSenha())){
-                return gerente;
-            }
-            gerente = this;
+
+    public List<Carga> allCargas() {
+        String str= new RequestCarga().selecte();
+        if(str.length()<5){
+            return new ArrayList<Carga>();
         }
-        return gerente;
+        List<Carga> cargas = new Gson().fromJson(str,new TypeToken<List<Carga>>(){}.getType());
+        return  cargas;
     }
 }

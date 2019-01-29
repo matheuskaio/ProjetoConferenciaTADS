@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.marcio.a3mconf.R;
 
-public class FragmentAbout extends Fragment {
+public class FragmentAddCaminhao extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        getActivity().setTitle("Sobre");
-        return inflater.inflate(R.layout.fragment_about,container,false);
+        getActivity().setTitle("Adicionar Caminhão");
+        return inflater.inflate(R.layout.fragment_add_caminhao,container,false);
     }
 }

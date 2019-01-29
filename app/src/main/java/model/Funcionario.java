@@ -1,17 +1,11 @@
 package model;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-
 import java.io.Serializable;
-
-import request.RequestFuncionario;
 
 public abstract class Funcionario implements Serializable{
 
     private String nome,cpf,senha,foto;
-    private Perfil perfil;
+    private char perfil;
 
 
     public Funcionario(String cpf, String senha) {
@@ -19,22 +13,20 @@ public abstract class Funcionario implements Serializable{
         this.senha = senha;
     }
 
-    public Funcionario(String nome, String cpf, String senha, Perfil perfil) {
+    public Funcionario(String nome, String cpf, String senha, char perfil) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
         this.perfil = perfil;
     }
 
-    public Funcionario(String nome, String cpf, String senha, String foto, Perfil perfil) {
+    public Funcionario(String nome, String cpf, String senha, String foto, char perfil) {
         this.nome = nome;
         this.cpf = cpf;
         this.senha = senha;
         this.foto = foto;
         this.perfil = perfil;
     }
-
-    public abstract Funcionario autenticado();
 
     public String getNome() {
         return nome;
@@ -68,11 +60,11 @@ public abstract class Funcionario implements Serializable{
         this.foto = foto;
     }
 
-    public Perfil getPerfil() {
+    public char getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Perfil perfil) {
+    public void setPerfil(char perfil) {
         this.perfil = perfil;
     }
 }

@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import model.Carga;
-import request.Connection;
+import model.request.Connection;
 
 public class CargaListViewAdapter extends BaseAdapter {
     private final List<Carga> cargas;
@@ -52,6 +52,7 @@ public class CargaListViewAdapter extends BaseAdapter {
         nome.setText(carga.getId()+"");
         descrica.setText("");
         String foto = carga.getLotes().get(0).getFotoAltura();
+
         if(foto.length()<200){
             Picasso.get().load(Connection.URL+foto+".jpg").into(image);
         }else{
