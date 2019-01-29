@@ -17,7 +17,7 @@ import com.example.marcio.a3mconf.R;
 import com.squareup.picasso.Picasso;
 
 import model.Lote;
-import request.Connection;
+import model.request.Connection;
 
 public class FragmentLote extends Fragment {
     @Nullable
@@ -31,7 +31,7 @@ public class FragmentLote extends Fragment {
         TextView lastro         = view.findViewById(R.id.lastro_prod);
         ImageView imageAltura   = view.findViewById(R.id.image_altura_prod);
         ImageView imageLastro   = view.findViewById(R.id.image_lastro_prod);
-
+        getActivity().setTitle("Lote: "+lote);
         name.setText(lote.getNomeProduto());
         altura.setText(lote.getAltura()+"");
         lastro.setText(lote.getLastro()+"");

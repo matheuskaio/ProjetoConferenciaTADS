@@ -16,16 +16,17 @@ import com.example.marcio.a3mconf.view.componet.CargaListViewAdapter;
 import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 
 import model.Carga;
-import model.Conferente;
+import model.Gerente;
 
 public class FragmentConferences extends Fragment {
-    private Conferente conferente;
+    private Gerente gerente;
     private TrocaDeTelasListener listener;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_conferences,container,false);
-        conferente = (Conferente) getArguments().getSerializable("funcionario");
+        gerente = (Gerente) getArguments().getSerializable("funcionario");
+        getActivity().setTitle("Conferências");
         final ListView lista = view.findViewById(R.id.lv_all_conferences);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -33,7 +34,7 @@ public class FragmentConferences extends Fragment {
                 listener.openTelaConference((Carga) parent.getAdapter().getItem(position));
             }
         });
-        CargaListViewAdapter cargasAdapter = new CargaListViewAdapter(conferente.allCargas(),getActivity());
+        CargaListViewAdapter cargasAdapter = new CargaListViewAdapter(gerente.allCargas(),getActivity());
         lista.setAdapter(cargasAdapter);
         return view;
     }

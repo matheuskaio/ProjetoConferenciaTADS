@@ -11,27 +11,43 @@
         <item
             android:id="@+id/nav_add_funcionario"
             android:icon="@drawable/ic_menu_person_add"
-            android:title="Adicionar Funcionário" />
+            android:title="Adicionar Funcionário"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_add_expedicao"
             android:icon="@drawable/ic_menu_add_location"
-            android:title="Adicionar Expedição" />
+            android:title="Adicionar Expedição"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_add_caminhao"
+            android:icon="@drawable/ic_menu_local_shipping"
+            android:title="Adicionar Caminhão"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_init_conference"
             android:icon="@drawable/ic_menu_local_grocery_store"
-            android:title="Iniciar Conferência" />
+            android:title="Iniciar Conferência"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_my_conferences"
             android:icon="@drawable/ic_menu_list_black"
-            android:title="Minhas Conferências" />
+            android:title="Minhas Conferências"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_conferences"
             android:icon="@drawable/ic_menu_format_list_numbered_black"
-            android:title="Conferências" />
+            android:title="Conferências"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_report"
             android:icon="@drawable/ic_menu_poll_black"
-            android:title="Relatório" />
+            android:title="Relatório"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_my_cargas"
+            android:icon="@drawable/ic_menu_list_black"
+            android:title="Minhas Cargas"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_info_black"
@@ -40,6 +56,7 @@
             android:id="@+id/nav_sair"
             android:icon="@drawable/ic_menu_build"
             android:title="Sair" />
+
     </group>
 
 </menu>

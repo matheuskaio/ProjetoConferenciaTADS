@@ -1,4 +1,4 @@
-package request;
+package model.request;
 
 import android.os.AsyncTask;
 

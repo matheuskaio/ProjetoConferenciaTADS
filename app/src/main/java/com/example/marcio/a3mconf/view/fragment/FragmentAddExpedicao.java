@@ -40,6 +40,7 @@ public class FragmentAddExpedicao extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_expedicao,container,false);
+        getActivity().setTitle("Adicionar Expedição");
         conferente      = (Conferente) getArguments().getSerializable("funcionario");
         cidades         = new ArrayList<>();
         linearLayout    = view.findViewById(R.id.container_expedicao);
@@ -89,7 +90,7 @@ public class FragmentAddExpedicao extends Fragment {
 
         layout.setLayoutParams(params);
         layout.addView(nome);
-        layout.setBackgroundColor(Color.WHITE);
+        layout.setBackgroundResource(R.drawable.bg_edit_text);
 
         cidade.setLayoutParams(params);
         cidade.addView(descricao);

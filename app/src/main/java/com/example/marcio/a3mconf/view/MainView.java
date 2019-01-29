@@ -10,11 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.HeaderViewListAdapter;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
@@ -24,7 +20,6 @@ import com.example.marcio.a3mconf.view.listeners.*;
 import model.Carga;
 import model.Conferente;
 import model.Funcionario;
-import model.Gerente;
 import model.Lote;
 import model.Motorista;
 
@@ -64,25 +59,47 @@ public class MainView extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         TextView nameFuncionario = navigationView.getHeaderView(0).findViewById(R.id.name_user);
-        nameFuncionario.setText(funcionario.getNome());
+//        nameFuncionario.setText(funcionario.getNome());
         if(funcionario instanceof Conferente){
-            ocultarItemMenu();
+            mostrarItemMenuConferente();
         }else if(funcionario instanceof Motorista){
-            ocultarItemMenu();
+            mostrarItemMenuMotorista();
+        }else {
+            mostrarItemMenuGerente();
         }
         openTela(new FragmentHome());
 
     }
 
-    private void ocultarItemMenu(){
-        MenuItem addFunc,relatorio,conferencias;
-        addFunc         = navigationView.getMenu().findItem(R.id.nav_add_funcionario);
+    private void mostrarItemMenuConferente(){
+        MenuItem addExpedicao,initConferencias,myConferencias,addCaminhao;
+
+        addExpedicao    = navigationView.getMenu().findItem(R.id.nav_add_expedicao);
+        initConferencias= navigationView.getMenu().findItem(R.id.nav_init_conference);
+        myConferencias  = navigationView.getMenu().findItem(R.id.nav_my_conferences);
+        addCaminhao     = navigationView.getMenu().findItem(R.id.nav_add_caminhao);
+
+        addExpedicao.setVisible(true);
+        initConferencias.setVisible(true);
+        myConferencias.setVisible(true);
+        addCaminhao.setVisible(true);
+    }
+
+    private void mostrarItemMenuMotorista(){
+        MenuItem myCargas = navigationView.getMenu().findItem(R.id.nav_my_cargas);
+        myCargas.setVisible(true);
+    }
+
+    private void mostrarItemMenuGerente(){
+        MenuItem addFuncionario,conferencias,relatorio;
+
+        addFuncionario  = navigationView.getMenu().findItem(R.id.nav_add_funcionario);
         conferencias    = navigationView.getMenu().findItem(R.id.nav_conferences);
         relatorio       = navigationView.getMenu().findItem(R.id.nav_report);
 
-        addFunc.setVisible(false);
-        conferencias.setVisible(false);
-        relatorio.setVisible(false);
+        addFuncionario.setVisible(true);
+        conferencias.setVisible(true);
+        relatorio.setVisible(true);
     }
     @Override
     public void onBackPressed() {
@@ -93,28 +110,7 @@ public class MainView extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.drawer, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @SuppressWarnings("StatementWithEmptyBody")
@@ -131,6 +127,9 @@ public class MainView extends AppCompatActivity
                 break;
             case R.id.nav_add_expedicao:
                 openTela(new FragmentAddExpedicao());
+                break;
+            case R.id.nav_add_caminhao:
+                openTela(new FragmentAddCaminhao());
                 break;
             case R.id.nav_init_conference:
                 openTela(new FragmentInitConference());
@@ -172,6 +171,11 @@ public class MainView extends AppCompatActivity
     @Override
     public void openTelaHome() {
         openTela(new FragmentHome());
+    }
+
+    @Override
+    public void openTelaNovaConferencia() {
+        openTela(new FragmentInitConference());
     }
 
     @Override

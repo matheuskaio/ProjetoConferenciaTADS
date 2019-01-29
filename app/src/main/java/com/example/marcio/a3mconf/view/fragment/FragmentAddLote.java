@@ -45,7 +45,7 @@ public class FragmentAddLote extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_add_lote,container,false);
-
+        getActivity().setTitle("Adicionar Lote");
         conferente = (Conferente) getArguments().getSerializable("funcionario");
 
         ((TextView) view.findViewById(R.id.quantidade)).setText(""+conferente.getCarga().getLotes().size());

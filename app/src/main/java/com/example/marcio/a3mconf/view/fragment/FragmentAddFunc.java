@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,11 @@ import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
+import com.github.rtoshiro.util.format.SimpleMaskFormatter;
+import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
 import control.FuncionarioControl;
 import model.Gerente;
-import model.Perfil;
 
 public class FragmentAddFunc extends Fragment {
     private Gerente gerente;
@@ -34,6 +34,7 @@ public class FragmentAddFunc extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         gerente     = (Gerente) getArguments().getSerializable("funcionario");
         final View view   = inflater.inflate(R.layout.fragment_add_funcionario,container,false);
+        getActivity().setTitle("Adicionar Funcionario");
         name        = view.findViewById(R.id.name_func);
         cpf         = view.findViewById(R.id.cpf_fun);
         senha       = view.findViewById(R.id.senha_func);
@@ -42,17 +43,21 @@ public class FragmentAddFunc extends Fragment {
         radioConferente = ((RadioButton) view.findViewById(R.id.radio_conferente));
         radioMotorista  = ((RadioButton) view.findViewById(R.id.radio_motorista));
 
+        SimpleMaskFormatter simpleMaskFormatter = new SimpleMaskFormatter("NNN.NNN.NNN-NN");
+        MaskTextWatcher maskTextWatcher = new MaskTextWatcher(cpf,simpleMaskFormatter);
+        cpf.addTextChangedListener(maskTextWatcher);
+
         cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Perfil perfil= null;
+                char perfil= 'n';
                 if(radioConferente.isChecked()){
-                    perfil = Perfil.CONFERENTE;
+                    perfil = 'C';
                 }else if(radioMotorista.isChecked()){
-                    perfil = perfil.MOTORISTA;
+                    perfil = 'M';
                 }
-                new FuncionarioControl().addFuncionario(name.getText().toString(),cpf.getText().toString(),senha.getText().toString(), perfil);
+                FuncionarioControl.getIstace().addFuncionario(name.getText().toString(),cpf.getText().toString(),senha.getText().toString(), perfil);
                 listener.openTelaHome();
             }
         });

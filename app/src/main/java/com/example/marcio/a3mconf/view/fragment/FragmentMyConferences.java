@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ public class FragmentMyConferences extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_conferences,container,false);
+        getActivity().setTitle("Minhas Coferências");
         conferente = (Conferente) getArguments().getSerializable("funcionario");
         ListView lista = view.findViewById(R.id.lv_my_conferences);
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -33,7 +35,7 @@ public class FragmentMyConferences extends Fragment {
                 listener.openTelaConference((Carga) parent.getAdapter().getItem(position));
             }
         });
-        CargaListViewAdapter cargasAdapter = new CargaListViewAdapter(conferente.allCargas(),getActivity());
+        CargaListViewAdapter cargasAdapter = new CargaListViewAdapter(conferente.myCargas(),getActivity());
         lista.setAdapter(cargasAdapter);
         return view;
     }

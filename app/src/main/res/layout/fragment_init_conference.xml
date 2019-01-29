@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    >
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="20dp"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text"
+            android:layout_marginRight="10dp">
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/spinner_expedicoes"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_edit_text">
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:id="@+id/spinner_caminhoes"
+                />
+        </RelativeLayout>
+    </LinearLayout>
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:background="#fff"
-        android:id="@+id/lista_de_lotes"></ListView>
+        android:layout_height="330dp"
+        android:background="@drawable/bg_edit_text"
+        android:id="@+id/lista_de_lotes"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,13 +53,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Finalizar"
-                android:id="@+id/finalizar_conferencia"/>
+                android:id="@+id/finalizar_conferencia"
+                android:background="@drawable/shape_button_blue"
+                android:layout_marginRight="5dp"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Adicionar Lote"
-                android:id="@+id/add_lote"/>
+                android:id="@+id/add_lote"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/shape_button_yellow"/>
         </LinearLayout>
 
     </RelativeLayout>
 </LinearLayout>
+</ScrollView>

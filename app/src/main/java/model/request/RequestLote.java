@@ -1,14 +1,8 @@
-package request;
+package model.request;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.Gson;
-
-import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import model.Lote;
 
 public class RequestLote {
     private String parametros;
