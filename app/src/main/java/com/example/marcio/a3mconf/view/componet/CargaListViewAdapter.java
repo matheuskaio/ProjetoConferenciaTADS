@@ -50,7 +50,7 @@ public class CargaListViewAdapter extends BaseAdapter {
         ImageView image = view.findViewById(R.id.lista_cargas_personalizada_imagem);
         Carga carga = cargas.get(position);
         nome.setText(carga.getId()+"");
-        descrica.setText("");
+        descrica.setText(formatDate(carga.getData()));
         String foto = carga.getLotes().get(0).getFotoAltura();
 
         if(foto.length()<200){
@@ -65,5 +65,11 @@ public class CargaListViewAdapter extends BaseAdapter {
         byte[] decodedString = Base64.decode(path, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
 
+    }
+
+    private String formatDate(String data){
+        String[] dataFormat = data.split("-");
+
+        return dataFormat[2]+"/"+dataFormat[1]+"/"+dataFormat[0];
     }
 }

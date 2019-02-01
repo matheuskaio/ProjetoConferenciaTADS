@@ -10,27 +10,34 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.fragment.*;
 import com.example.marcio.a3mconf.view.listeners.*;
+import com.squareup.picasso.Picasso;
 
+import control.FuncionarioControl;
 import model.Carga;
 import model.Conferente;
 import model.Funcionario;
 import model.Lote;
 import model.Motorista;
+import model.request.Connection;
 
 public class MainView extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,TrocaDeTelasListener {
 
         private Toolbar toolbar;
-        private Funcionario funcionario;
         private ActionBarDrawerToggle toggle;
         private DrawerLayout drawer;
         private NavigationView navigationView;
+        private FuncionarioControl funcionario;
+        private boolean home,addlote,lote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,26 +50,40 @@ public class MainView extends AppCompatActivity
     }
 
     private void initView(){
+        home = true;
+        addlote = false;
+        toolbar     = findViewById(R.id.toolbar);
+        drawer      = findViewById(R.id.drawer_layout);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        funcionario = (Funcionario) getIntent().getSerializableExtra("funcionario");
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
+        funcionario = FuncionarioControl.getIstace();
 
         setSupportActionBar(toolbar);
+
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+        View head = navigationView.getHeaderView(0);
+        TextView nameFuncionario    = head.findViewById(R.id.name_user);
+        ImageView imageProfile      = head.findViewById(R.id.image_head_profile);
 
-        TextView nameFuncionario = navigationView.getHeaderView(0).findViewById(R.id.name_user);
-//        nameFuncionario.setText(funcionario.getNome());
-        if(funcionario instanceof Conferente){
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTela(new FragmentProfile());
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
+        nameFuncionario.setText(funcionario.getFuncionario().getNome());
+        String fotoPerfil = funcionario.getFuncionario().getFoto();
+        if(fotoPerfil!= null){
+            Picasso.get().load(Connection.URL+fotoPerfil+".jpg").into(imageProfile);
+        }
+        if(funcionario.isConferente()){
             mostrarItemMenuConferente();
-        }else if(funcionario instanceof Motorista){
+        }else if(funcionario.isMotorista()){
             mostrarItemMenuMotorista();
         }else {
             mostrarItemMenuGerente();
@@ -106,7 +127,13 @@ public class MainView extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(home){
+                this.moveTaskToBack(true);
+            }else if(addlote){
+                openTela(new FragmentInitConference());
+            }else{
+                openTela(new FragmentHome());
+            }
         }
     }
 
@@ -120,33 +147,44 @@ public class MainView extends AppCompatActivity
         switch (item.getItemId()) {
             case R.id.nav_profile:
                 // Handle the camera action
+                home =false;
                 openTela(new FragmentProfile());
                 break;
             case R.id.nav_add_funcionario:
+                home =false;
                 openTela(new FragmentAddFunc());
                 break;
             case R.id.nav_add_expedicao:
+                home =false;
                 openTela(new FragmentAddExpedicao());
                 break;
             case R.id.nav_add_caminhao:
+                home =false;
                 openTela(new FragmentAddCaminhao());
                 break;
             case R.id.nav_init_conference:
+                home =false;
                 openTela(new FragmentInitConference());
                 break;
             case R.id.nav_my_conferences:
+                home =false;
                 openTela(new FragmentMyConferences());
                 break;
             case R.id.nav_conferences:
+                home =false;
                 openTela(new FragmentConferences());
                 break;
             case R.id.nav_report:
+                home =false;
                 openTela(new FragmentReport());
                 break;
             case R.id.nav_my_cargas:
+                home =false;
                 openTela(new FragmentMyCargas());
                 break;
+
             case R.id.nav_about:
+                home =false;
                 openTela(new FragmentAbout());
                 break;
             case R.id.nav_sair:
@@ -158,12 +196,13 @@ public class MainView extends AppCompatActivity
 
     @Override
     public void openTelaAddLote() {
+        addlote = true;
         openTela(new FragmentAddLote());
     }
 
-
     @Override
     public void openTelaLote(Lote lote) {
+        addlote = false;
         FragmentLote fragmentLote = new FragmentLote();
         Bundle bundleLote = new Bundle();
         bundleLote.putSerializable("lote",lote);
@@ -173,36 +212,25 @@ public class MainView extends AppCompatActivity
 
     @Override
     public void openTelaHome() {
+        addlote = false;
         openTela(new FragmentHome());
     }
 
     @Override
     public void openTelaNovaConferencia() {
+        addlote = false;
         openTela(new FragmentInitConference());
     }
 
-    @Override
-    public void addLote(Lote lote) {
-        ((Conferente) funcionario).addLote(lote);
-        openTela(new FragmentInitConference());
-    }
 
     public void openTela(Fragment fragment){
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, passFuncionario(fragment)).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
-    private Fragment passFuncionario(Fragment fragment){
-        if(fragment instanceof FragmentLote || fragment instanceof FragmentConference){
-            return fragment;
-        }
-        Bundle bundleFuncionario = new Bundle();
-        bundleFuncionario.putSerializable("funcionario",funcionario);
-        fragment.setArguments(bundleFuncionario);
-        return fragment;
-    }
 
     @Override
     public void openTelaConference(Carga carga) {
+        addlote = false;
         FragmentConference fragmentConference = new FragmentConference();
         Bundle bundleConference = new Bundle();
         bundleConference.putSerializable("carga",carga);

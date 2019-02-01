@@ -1,16 +1,13 @@
 package model;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import model.request.RequestCarga;
-import model.request.RequestFuncionario;
 
 public class Motorista extends Funcionario {
+
     public Motorista(String cpf, String senha) {
         super(cpf, senha);
     }
@@ -24,7 +21,11 @@ public class Motorista extends Funcionario {
     }
 
     public List<Carga> myCargas(){
-        return new RequestCarga().selecte(this);
+        List<Carga> cargas = new RequestCarga().selecte(this);
+        if(cargas != null){
+            return cargas;
+        }
+        return new ArrayList<>();
     }
 
 }

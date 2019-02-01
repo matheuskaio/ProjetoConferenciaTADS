@@ -11,6 +11,7 @@ public class Carga implements Serializable {
     private Expedicao expedicao;
     private List<Lote> lotes;
     private Caminhao caminhao;
+    private String data;
 
     public Carga(Conferente conferente){
         this.lotes = new ArrayList<>();
@@ -36,6 +37,14 @@ public class Carga implements Serializable {
 
     public void setConferente(Conferente conferente) {
         this.conferente = conferente;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     public Caminhao getCaminhao() {

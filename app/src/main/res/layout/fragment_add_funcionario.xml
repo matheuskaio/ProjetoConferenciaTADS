@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="CPF"
-            android:inputType="textPersonName"
+            android:inputType="number"
             />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
@@ -64,17 +64,22 @@
                 android:id="@+id/radio_conferente"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="Conferente"
                 />
             <RadioButton
                 android:id="@+id/radio_motorista"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="Motorista" />
     </RadioGroup>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_cadastro"
+        android:background="@drawable/shape_btn_success"
+        android:paddingHorizontal="40dp"
+        android:textColor="@color/white"
         android:text="cadastrar"/>
 </LinearLayout>

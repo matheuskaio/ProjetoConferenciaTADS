@@ -14,17 +14,17 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.marcio.a3mconf.R;
+import com.example.marcio.a3mconf.view.MainView;
 import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
 
 import control.FuncionarioControl;
+import control.GerenteIndirection;
 import model.Gerente;
 
 public class FragmentAddFunc extends Fragment {
-    private Gerente gerente;
     private TextView name,cpf,senha;
-    private RadioGroup group;
     private Button cadastrar;
     private RadioButton radioConferente;
     private RadioButton radioMotorista;
@@ -32,14 +32,13 @@ public class FragmentAddFunc extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        gerente     = (Gerente) getArguments().getSerializable("funcionario");
+
         final View view   = inflater.inflate(R.layout.fragment_add_funcionario,container,false);
         getActivity().setTitle("Adicionar Funcionario");
-        name        = view.findViewById(R.id.name_func);
-        cpf         = view.findViewById(R.id.cpf_fun);
-        senha       = view.findViewById(R.id.senha_func);
-        cadastrar   = view.findViewById(R.id.btn_cadastro);
-        group       = view.findViewById(R.id.group_profile);
+        name            = view.findViewById(R.id.name_func);
+        cpf             = view.findViewById(R.id.cpf_fun);
+        senha           = view.findViewById(R.id.senha_func);
+        cadastrar       = view.findViewById(R.id.btn_cadastro);
         radioConferente = ((RadioButton) view.findViewById(R.id.radio_conferente));
         radioMotorista  = ((RadioButton) view.findViewById(R.id.radio_motorista));
 
@@ -57,7 +56,7 @@ public class FragmentAddFunc extends Fragment {
                 }else if(radioMotorista.isChecked()){
                     perfil = 'M';
                 }
-                FuncionarioControl.getIstace().addFuncionario(name.getText().toString(),cpf.getText().toString(),senha.getText().toString(), perfil);
+                GerenteIndirection.getInstance().addFuncionario(name.getText().toString(),cpf.getText().toString(),senha.getText().toString(), perfil);
                 listener.openTelaHome();
             }
         });

@@ -9,8 +9,10 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import model.Caminhao;
 import model.Carga;
 import model.Conferente;
+import model.Expedicao;
 import model.Motorista;
 
 public class    RequestCarga {
@@ -48,6 +50,31 @@ public class    RequestCarga {
         return "Erro ao consultar";
     }
 
+    public String selecte(Expedicao expedicao){
+
+        try {
+            return new Solicita("expedicao="+expedicao.getId()).execute(Connection.URL+"selectCargas.php").get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "Erro ao consultar";
+    }
+
+    public String selecte(Caminhao caminhao){
+
+        try {
+            Log.e("Placa",caminhao.getPlaca());
+            return new Solicita("caminhao="+caminhao.getPlaca()).execute(Connection.URL+"selectCargas.php").get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "Erro ao consultar";
+    }
+
     public String selecte(Conferente conferente){
         parametros ="cpf="+conferente.getCpf();
         try {
@@ -65,6 +92,9 @@ public class    RequestCarga {
         try {
            str = new Solicita("cpf="+motorista.getCpf()).execute(Connection.URL+"selecteCargaMotorista.php").get();
            Log.e("String",str);
+           if(str.length()<25){
+               return null;
+           }
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

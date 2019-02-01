@@ -4,7 +4,6 @@ import model.Carga;
 import model.Lote;
 
 public interface TrocaDeTelasListener {
-    public void addLote(Lote lote);
     public void openTelaConference(Carga carga);
     public void openTelaAddLote();
     public void openTelaLote(Lote lote);

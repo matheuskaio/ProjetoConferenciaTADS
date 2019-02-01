@@ -26,14 +26,14 @@
                 android:layout_height="wrap_content"
                 android:text="Lotes cadastrados:"
                 android:textColor="#fff"
-                android:textSize="30dp"/>
+                android:textSize="25dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="XX"
                 android:textColor="#fff"
                 android:id="@+id/quantidade"
-                android:textSize="30dp"/>
+                android:textSize="25dp"/>
         </LinearLayout>
     </RelativeLayout>
     <LinearLayout
@@ -42,17 +42,28 @@
         android:orientation="vertical"
         android:paddingHorizontal="20dp">
 
-
-            <android.support.design.widget.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_edit_text">
-                <android.support.design.widget.TextInputEditText
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="#fff"
+                    android:textSize="30dp"
+                    android:layout_marginRight="10dp"/>
+                <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Produto"
-                    android:id="@+id/produto"/>
-            </android.support.design.widget.TextInputLayout>
+                    android:background="@drawable/bg_edit_text">
+                    <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Produto"
+                        android:id="@+id/produto"/>
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,9 +72,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TAM Altura:"
+                    android:text="TAM Altura:*"
                     android:textColor="#fff"
-                    android:textSize="30dp"
+                    android:textSize="25dp"
                     android:layout_marginRight="10dp"/>
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -83,9 +94,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TAM Lastro:"
+                    android:text="TAM Lastro:*"
                     android:textColor="#fff"
-                    android:textSize="30dp"
+                    android:textSize="25dp"
                     android:layout_marginRight="10dp"/>
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -107,9 +118,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:text="UN Medida:"
+                    android:text="Observação:"
                     android:textColor="#fff"
-                    android:textSize="30dp" />
+                    android:textSize="25dp" />
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -128,9 +139,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Foto Altura:"
+                    android:text="Foto Altura:*"
                     android:textColor="#fff"
-                    android:textSize="30dp"
+                    android:textSize="25dp"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="match_parent"
@@ -146,9 +157,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Foto Lastro:"
+                    android:text="Foto Lastro:*"
                     android:textColor="#fff"
-                    android:textSize="30dp"
+                    android:textSize="25dp"
                     android:layout_marginRight="10dp"/>
                 <ImageView
                     android:layout_width="match_parent"

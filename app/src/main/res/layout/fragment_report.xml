@@ -1,11 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <TextView
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="20dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text">
+                <Spinner
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/report_type"
+                    android:text="Relatório"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_edit_text"
+                android:layout_alignParentRight="true"
+                >
+                <Spinner
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/report_reference"
+                    android:text="Relatório"/>
+            </RelativeLayout>
+        </RelativeLayout>
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:text="Relatório"/>
+        android:paddingHorizontal="80dp"
+        android:text="Gerear"
+        android:id="@+id/generate_report"
+        android:background="@drawable/shape_btn_success"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/report_list"
+        android:background="@drawable/bg_edit_text"/>
 
-</RelativeLayout>
+
+</LinearLayout>
