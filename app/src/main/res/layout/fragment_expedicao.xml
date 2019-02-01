@@ -56,26 +56,40 @@
         </LinearLayout>
 
     </LinearLayout>
-    <ImageButton
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="30dp"
-        android:layout_marginTop="30dp"
-        android:id="@+id/btn_add_expedicao"
-        android:src="@drawable/ic_add" />
+
+        android:layout_marginBottom="30dp">
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:id="@+id/btn_remover_cidade"
+            android:src="@drawable/ic_remove"/>
+        <ImageButton
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:paddingHorizontal="30dp"
+            android:id="@+id/btn_add_expedicao"
+            android:src="@drawable/ic_add" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="cancelar"
+            android:background="@drawable/shape_button_blue"
+            android:layout_marginRight="5dp"
             android:id="@+id/cancelar_cadastro_expedicao"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Cadastrar"
-            android:id="@+id/cardastrar_expedicao"/>
+            android:layout_marginLeft="5dp"
+            android:id="@+id/cardastrar_expedicao"
+            android:background="@drawable/shape_button_yellow"/>
     </LinearLayout>
 </LinearLayout>
 </ScrollView>

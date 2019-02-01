@@ -1,9 +1,12 @@
 package control;
 
-import android.widget.EditText;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Caminhao;
+import model.Carga;
 import model.Conferente;
+import model.Expedicao;
 import model.Funcionario;
 import model.Gerente;
 import model.Motorista;
@@ -18,6 +21,7 @@ public class FuncionarioControl {
     private FuncionarioControl(){
 
     }
+
     public static FuncionarioControl getIstace(){
         if(funcionarioControl == null){
             funcionarioControl = new FuncionarioControl();
@@ -35,6 +39,8 @@ public class FuncionarioControl {
             }
         } catch (CPFNotFoundException e) {
             str = "CPF não encontrado";
+        } catch (NullPointerException e){
+            str = "Erro de conexão";
         }
         return str;
     }
@@ -43,37 +49,27 @@ public class FuncionarioControl {
         return funcionario;
     }
 
-    public void addFuncionario(String nome,String cpf, String senha,char perfil){
-        cpf = replaceCPF(cpf);
-        if(perfil == 'C'){
-            ((Gerente) funcionario).cadastrarFuncionario(new Conferente(nome,cpf,senha,perfil));
-        }else if(perfil == 'M'){
-            ((Gerente) funcionario).cadastrarFuncionario(new Motorista(nome,cpf,senha,perfil));
-        }else if(perfil == 'G'){
-            ((Gerente) funcionario).cadastrarFuncionario(new Gerente(nome,cpf,senha,perfil));
+
+    public Funcionario getFuncionario(){
+        return funcionario;
+    }
+
+
+    public boolean isConferente(){
+        if(funcionario instanceof Conferente){
+            return true;
         }
+        return false;
     }
 
-    public void addFuncionario(String nome,String cpf, String senha,char perfil, String foto){
-        cpf = replaceCPF(cpf);
-        if(perfil == 'C'){
-            ((Gerente) funcionario).cadastrarFuncionario(new Conferente(nome,cpf,senha,foto,perfil));
-        }else if(perfil == 'M'){
-            ((Gerente) funcionario).cadastrarFuncionario(new Motorista(nome,cpf,senha,foto,perfil));
-        }else if(perfil == 'G'){
-            ((Gerente) funcionario).cadastrarFuncionario(new Gerente(nome,cpf,senha,foto,perfil));
+    public boolean isMotorista(){
+        if(funcionario instanceof Motorista){
+            return true;
         }
+        return false;
     }
 
-    public void cadastrarCaminhao(String modelo,String placa){
-        ((Conferente) funcionario).cadastrarCaminhao(new Caminhao(modelo,placa));
-    }
 
-    private String replaceCPF(String cpf){
-        cpf = cpf.replace(".","");
-        cpf = cpf.replace("-","");
-        return cpf;
-    }
 
     public String validarCPF(String cpf){
         if(cpf.isEmpty()){
@@ -83,5 +79,11 @@ public class FuncionarioControl {
             return "CPF muito curto";
         }
         return null;
+    }
+
+    public String replaceCPF(String cpf){
+        cpf = cpf.replace(".","");
+        cpf = cpf.replace("-","");
+        return cpf;
     }
 }

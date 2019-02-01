@@ -35,7 +35,7 @@ public class Conferente extends Funcionario {
         this.carga = carga;
     }
 
-    public void iniciarCoferencia(){
+    public void iniciarConferencia(){
         if(carga==null) {
             carga = new Carga(this);
         }
@@ -63,7 +63,7 @@ public class Conferente extends Funcionario {
         new RequestExpedicao().insert(expedicao);
     }
 
-    public List<Expedicao> expedicaos(){
+    public List<Expedicao> listarExpedicaos(){
         String str = new RequestExpedicao().select();
         if(str.length()<5){
             return new ArrayList<>();
@@ -75,7 +75,7 @@ public class Conferente extends Funcionario {
         new RequestCaminhao().insert(caminhao);
     }
 
-    public List<Caminhao> caminhoes(){
+    public List<Caminhao> listarCaminhoes(){
         String str = new RequestCaminhao().select();
         if(str.length()<5){
             return new ArrayList<>();
@@ -83,9 +83,11 @@ public class Conferente extends Funcionario {
         return new Gson().fromJson(str,new TypeToken<List<Caminhao>>(){}.getType());
     }
 
-    public List<Motorista> motoristas(){
-        return new RequestFuncionario().select('M');
+    public List<Motorista> listarMotoristas(){
+        String str = new RequestFuncionario().select('M');
+        return new Gson().fromJson(str,new TypeToken<List<Motorista>>(){}.getType());
     }
+
 
 
 

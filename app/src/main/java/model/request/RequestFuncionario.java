@@ -23,14 +23,14 @@ public class RequestFuncionario{
         Log.e("Funcionario",parametros);
         new Solicita(parametros).execute(Connection.URL+"insertFuncionario.php");
     }
-    public List<Motorista> select(char perfil){
+    public String select(char perfil){
         String str = null;
         try {
-            str = new Solicita("perfil="+perfil).execute(Connection.URL+"selectMotorista.php").get();
+            str = new Solicita("perfil="+perfil).execute(Connection.URL+"selectFuncionario.php").get();
             if(str.length()<25){
                 return null;
             }
-            return new Gson().fromJson(str,new TypeToken<List<Motorista>>(){}.getType());
+            return str;
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
@@ -47,6 +47,7 @@ public class RequestFuncionario{
                 throw new CPFNotFoundException();
             }
             char perfil = str.charAt(str.length()-4);
+            Log.e("pe",perfil+"");
             if(perfil=='G'){
                 return new Gson().fromJson(str, Gerente.class);
             }else if(perfil=='C'){

@@ -31,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Modelo: "
+                android:text="Modelo:*"
                 android:textColor="#fff"
                 android:textSize="30dp"/>
             <android.support.design.widget.TextInputLayout
@@ -53,7 +53,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Placa:     "
+                android:text="Placa:*   "
                 android:textColor="#fff"
                 android:textSize="30dp"/>
             <android.support.design.widget.TextInputLayout
@@ -76,12 +76,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cancelar"
-            android:id="@+id/cancelar_cadastro_caminhao"/>
+            android:background="@drawable/shape_button_blue"
+            android:id="@+id/cancelar_cadastro_caminhao"
+            android:layout_marginRight="5dp"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadastrar"
-            android:id="@+id/cadastrar_caminhao"/>
+            android:background="@drawable/shape_button_yellow"
+            android:id="@+id/cadastrar_caminhao"
+            android:layout_marginLeft="5dp"/>
     </LinearLayout>
 </LinearLayout>
 </ScrollView>

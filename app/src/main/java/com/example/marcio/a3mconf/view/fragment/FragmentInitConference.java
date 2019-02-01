@@ -20,18 +20,16 @@ import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.componet.LoteListViewAdapter;
 import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import control.ConferenteIndirection;
 import model.Caminhao;
-import model.Conferente;
 import model.Expedicao;
 import model.Lote;
 import model.Motorista;
 
 public class FragmentInitConference extends Fragment {
     private TrocaDeTelasListener listener;
-    private Conferente conferente;
     TextView mTextView;
     private Spinner expedicoes,caminhoes,motoristas;
 
@@ -39,15 +37,14 @@ public class FragmentInitConference extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_init_conference,container,false);
+        View view = inflater.inflate(R.layout.fragment_init_conference,container,false);
 
-       mTextView = (TextView) view.findViewById(R.id.text);
-       getActivity().setTitle("Realizar Conferência");
-       conferente = (Conferente) getArguments().getSerializable("funcionario");
+        mTextView = (TextView) view.findViewById(R.id.text);
+        getActivity().setTitle("Realizar Conferência");
 
-       final ListView lista = view.findViewById(R.id.lista_de_lotes);
-       conferente.iniciarCoferencia();
-
+        final ListView lista = view.findViewById(R.id.lista_de_lotes);
+        final ConferenteIndirection conferente = ConferenteIndirection.getInstance();
+        conferente.iniciarConferencia();
         expedicoes   = view.findViewById(R.id.spinner_expedicoes);
         caminhoes    = view.findViewById(R.id.spinner_caminhoes);
         motoristas   = view.findViewById(R.id.spinner_motorista);
@@ -75,7 +72,7 @@ public class FragmentInitConference extends Fragment {
 
                Toast.makeText(getContext(),"Carga registrada com sucesso!",Toast.LENGTH_SHORT).show();
                lista.setAdapter(null);
-               conferente.iniciarCoferencia();
+               conferente.iniciarConferencia();
            }
         });
 
@@ -83,7 +80,6 @@ public class FragmentInitConference extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 listener.openTelaLote((Lote) parent.getAdapter().getItem(position));
-
             }
         });
 

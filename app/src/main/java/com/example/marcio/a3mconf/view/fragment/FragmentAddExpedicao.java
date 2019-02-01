@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
@@ -23,17 +23,16 @@ import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Conferente;
-import model.Expedicao;
+import control.ConferenteIndirection;
+import model.exceptions.EmptyFieldException;
 
 public class FragmentAddExpedicao extends Fragment {
-    private ImageButton btnAddExpedicao;
+    private ImageButton btnAddCidade,btnRemoveCidade;
     private Button btnCadastrar,btnCancelar;
     private LinearLayout linearLayout;
     private TextInputEditText cidade1, nameExpedicao;
     private int cont;
     private List<TextInputEditText> cidades;
-    private Conferente conferente;
     private TrocaDeTelasListener listener;
 
     @Nullable
@@ -41,32 +40,50 @@ public class FragmentAddExpedicao extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_expedicao,container,false);
         getActivity().setTitle("Adicionar Expedição");
-        conferente      = (Conferente) getArguments().getSerializable("funcionario");
+
         cidades         = new ArrayList<>();
         linearLayout    = view.findViewById(R.id.container_expedicao);
-        btnAddExpedicao = view.findViewById(R.id.btn_add_expedicao);
+        btnAddCidade    = view.findViewById(R.id.btn_add_expedicao);
+        btnRemoveCidade = view.findViewById(R.id.btn_remover_cidade);
         btnCancelar     = view.findViewById(R.id.cancelar_cadastro_expedicao);
         btnCadastrar    = view.findViewById(R.id.cardastrar_expedicao);
         cidade1         = view.findViewById(R.id.cidade1);
         nameExpedicao   = view.findViewById(R.id.expedicao);
         cont = 2;
-        btnAddExpedicao.setOnClickListener(new View.OnClickListener() {
+        btnAddCidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createLayout();
-
             }
         });
+        btnRemoveCidade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeCity();
+            }
+        });
+
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.openTelaHome();
+            }
+        });
+
         btnCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Expedicao expedicao = new Expedicao(new ArrayList<String>(), nameExpedicao.getText().toString());
-                expedicao.add(cidade1.getText().toString());
+                List<String> strCidades = new ArrayList<>();
+                strCidades.add(cidade1.getText().toString());
                 for (TextInputEditText cidade:cidades){
-                    expedicao.add(cidade.getText().toString());
+                    strCidades.add(cidade.getText().toString());
                 }
-                conferente.cadastraExpedicao(expedicao);
-                listener.openTelaHome();
+                try {
+                    ConferenteIndirection.getInstance().cadastrarExpedicao(nameExpedicao.getText().toString(),strCidades);
+                    listener.openTelaHome();
+                } catch (EmptyFieldException e) {
+                    Toast.makeText(getContext(),"preencha todos os campos",Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;
@@ -99,6 +116,15 @@ public class FragmentAddExpedicao extends Fragment {
         linearLayout.addView(cidade);
     }
 
+    private void removeCity(){
+        if(cont>2) {
+            linearLayout.removeView(linearLayout.getChildAt(linearLayout.getChildCount() - 1));
+            cidades.remove(cidades.size()-1);
+            cont--;
+        }else{
+            Toast.makeText(getContext(),"Você precisa adicionar no mínimo uma cidade",Toast.LENGTH_SHORT).show();
+        }
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

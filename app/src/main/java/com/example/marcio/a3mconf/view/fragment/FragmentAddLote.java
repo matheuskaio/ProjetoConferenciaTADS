@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
@@ -30,32 +31,52 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import model.Conferente;
+import control.ConferenteIndirection;
+import control.LoteControl;
 import model.Lote;
+import model.exceptions.EmptyFieldException;
 
 public class FragmentAddLote extends Fragment {
 
     private TrocaDeTelasListener listener;
     private ImageView imageAltura,imageLastro, imageView;
+    private TextInputEditText tvAltura,tvLastro,tvProduto,tvObs;
     private Button btnAdd;
-    private Conferente conferente;
     private String pathImagerAltura, pathImagerLastro, mCurrentPhotoPath;
     private boolean altura;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        final LoteControl loteControl = new LoteControl();
         final View view = inflater.inflate(R.layout.fragment_add_lote,container,false);
         getActivity().setTitle("Adicionar Lote");
-        conferente = (Conferente) getArguments().getSerializable("funcionario");
 
-        ((TextView) view.findViewById(R.id.quantidade)).setText(""+conferente.getCarga().getLotes().size());
+        ((TextView) view.findViewById(R.id.quantidade)).setText(""+ConferenteIndirection.getInstance().getCarga().getLotes().size());
+
+        tvAltura = view.findViewById(R.id.altura);
+        tvLastro = view.findViewById(R.id.lastro);
+        tvProduto = view.findViewById(R.id.produto);
+        tvObs   = view.findViewById(R.id.un_medida);
+
+        pathImagerLastro="";
+        pathImagerAltura="";
 
         btnAdd = view.findViewById(R.id.adicionar);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.addLote(newLote(view));
+                try {
+                    String produto      = tvProduto.getText().toString();
+                    String strAltura    = tvAltura.getText().toString();
+                    String strLastro    = tvLastro.getText().toString();
+                    int altura = Integer.parseInt((strAltura.isEmpty())? "0" : strAltura);
+                    int lastro = Integer.parseInt((strLastro.isEmpty())? "0" : strLastro);
+                    loteControl.inserirLote(altura,lastro, produto,pathImagerAltura,pathImagerLastro);
+                    listener.openTelaNovaConferencia();
+                } catch (EmptyFieldException e) {
+                    Toast.makeText(getContext(),"Os campos obrigatórios são marcados com ‘*’.\n" +
+                            "Preencha todos os campos obrigatórios!",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -69,16 +90,6 @@ public class FragmentAddLote extends Fragment {
         return view;
     }
 
-    public Lote newLote(View view){
-
-        String produto  = ((TextInputEditText) view.findViewById(R.id.produto)).getText().toString();
-        int altura      = Integer.parseInt(((TextInputEditText) view.findViewById(R.id.altura)).getText().toString());
-        int lastro      = Integer.parseInt(((TextInputEditText)view.findViewById(R.id.lastro)).getText().toString());
-
-        return new Lote(altura,lastro, produto, "", pathImagerAltura, pathImagerLastro);
-
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -89,7 +100,11 @@ public class FragmentAddLote extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         galleryAddPic();
-        setPic(imageView,altura);
+        try {
+            setPic(imageView,altura);
+        }catch (RuntimeException e){
+
+        }
     }
 
     private void selectedImageListener(final ImageView image, final boolean altura){

@@ -3,12 +3,14 @@ package model;
 import java.io.Serializable;
 import java.util.Random;
 
+import model.exceptions.EmptyFieldException;
+
 public class Lote implements Serializable {
 
     private int altura,lastro;
     private String id,produto,observacao,foto_altura,foto_lastro;
 
-    public Lote(int altura, int lastro, String nomeProduto, String observacao,String fotoAltura,String fotoLastro) {
+    public Lote(int altura, int lastro, String nomeProduto, String observacao,String fotoAltura,String fotoLastro) throws EmptyFieldException {
         this.altura = altura;
         this.lastro = lastro;
         this.produto = nomeProduto;

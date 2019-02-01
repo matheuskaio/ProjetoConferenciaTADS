@@ -15,29 +15,25 @@ import android.widget.Button;
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.listeners.TrocaDeTelasListener;
 
+import control.FuncionarioControl;
 import model.Conferente;
 import model.Funcionario;
 
 public class FragmentHome extends Fragment {
     private Button btnNovaConferencia;
     private TrocaDeTelasListener listener;
-    private Funcionario funcionario;
-    private NavigationView navigationView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home,container,false);
 
-        funcionario = (Funcionario) getArguments().getSerializable("funcionario");
-
         getActivity().setTitle("Home");
 
 
         btnNovaConferencia = view.findViewById(R.id.btn_nova_conferencia);
-        if(!(funcionario instanceof Conferente)){
+        if(!(FuncionarioControl.getIstace().isConferente())){
             btnNovaConferencia.setVisibility(View.GONE);
         }
-        Log.e("Tipo",funcionario.getClass()+"");
         btnNovaConferencia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
