@@ -14,11 +14,6 @@
             android:title="Adicionar Funcionário"
             android:visible="false"/>
         <item
-            android:id="@+id/nav_add_expedicao"
-            android:icon="@drawable/ic_menu_add_location"
-            android:title="Adicionar Expedição"
-            android:visible="false"/>
-        <item
             android:id="@+id/nav_add_caminhao"
             android:icon="@drawable/ic_menu_local_shipping"
             android:title="Adicionar Caminhão"

@@ -93,14 +93,12 @@ public class MainView extends AppCompatActivity
     }
 
     private void mostrarItemMenuConferente(){
-        MenuItem addExpedicao,initConferencias,myConferencias,addCaminhao;
+        MenuItem initConferencias,myConferencias,addCaminhao;
 
-        addExpedicao    = navigationView.getMenu().findItem(R.id.nav_add_expedicao);
         initConferencias= navigationView.getMenu().findItem(R.id.nav_init_conference);
         myConferencias  = navigationView.getMenu().findItem(R.id.nav_my_conferences);
         addCaminhao     = navigationView.getMenu().findItem(R.id.nav_add_caminhao);
 
-        addExpedicao.setVisible(true);
         initConferencias.setVisible(true);
         myConferencias.setVisible(true);
         addCaminhao.setVisible(true);
@@ -153,10 +151,6 @@ public class MainView extends AppCompatActivity
             case R.id.nav_add_funcionario:
                 home =false;
                 openTela(new FragmentAddFunc());
-                break;
-            case R.id.nav_add_expedicao:
-                home =false;
-                openTela(new FragmentAddExpedicao());
                 break;
             case R.id.nav_add_caminhao:
                 home =false;

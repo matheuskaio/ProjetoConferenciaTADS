@@ -5,7 +5,6 @@ import java.util.List;
 import model.Caminhao;
 import model.Carga;
 import model.Conferente;
-import model.Expedicao;
 import model.Gerente;
 import model.Motorista;
 
@@ -57,9 +56,7 @@ public class GerenteIndirection {
     public List<Caminhao> allCaminhoes(){
         return gerente.listarCaminhoes();
     }
-    public List<Expedicao> allExpedicos(){
-        return gerente.listarExpedicoes();
-    }
+
     public List<Motorista> allMotoristas(){
         return gerente.listarMotoristas();
     }

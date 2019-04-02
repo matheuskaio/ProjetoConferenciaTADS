@@ -1,14 +1,7 @@
 package control;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import model.Caminhao;
-import model.Carga;
 import model.Conferente;
-import model.Expedicao;
 import model.Funcionario;
-import model.Gerente;
 import model.Motorista;
 import model.exceptions.CPFNotFoundException;
 import model.request.RequestFuncionario;

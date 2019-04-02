@@ -19,14 +19,9 @@ import com.example.marcio.a3mconf.view.componet.CargaListViewAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import control.ConferenteIndirection;
-import control.FuncionarioControl;
 import control.GerenteIndirection;
 import model.Caminhao;
-import model.Carga;
 import model.Conferente;
-import model.Expedicao;
-import model.Funcionario;
 import model.Motorista;
 
 public class FragmentReport extends Fragment {
@@ -57,7 +52,7 @@ public class FragmentReport extends Fragment {
         final ArrayAdapter<Caminhao> listCaminhao = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allCaminhoes());
         final ArrayAdapter<Conferente> listConferentes = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allConferentes());
         final ArrayAdapter<Motorista> listMotoristas = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allMotoristas());
-        final ArrayAdapter<Expedicao> listExpedicaos = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allExpedicos());
+
         reference.setAdapter(listCaminhao);
 
 
@@ -70,7 +65,7 @@ public class FragmentReport extends Fragment {
                 }else if(type.getSelectedItem().equals(types.get(1))){
                     reference.setAdapter(listConferentes);
                 }else if(type.getSelectedItem().equals(types.get(2))){
-                    reference.setAdapter(listExpedicaos);
+                    reference.setAdapter(null);
                 }else{
                     reference.setAdapter(listMotoristas);
                 }
@@ -89,8 +84,8 @@ public class FragmentReport extends Fragment {
                     listCargas = new CargaListViewAdapter(((Conferente) reference.getSelectedItem()).myCargas(),getActivity());
                 }else if(reference.getSelectedItem() instanceof Motorista){
                     listCargas = new CargaListViewAdapter(((Motorista) reference.getSelectedItem()).myCargas(),getActivity());
-                }else if(reference.getSelectedItem() instanceof Expedicao){
-                    listCargas = new CargaListViewAdapter(((Expedicao) reference.getSelectedItem()).cargas(),getActivity());
+                }else if(reference.getSelectedItem() instanceof String){
+                    listCargas = new CargaListViewAdapter(null,getActivity());
                 }else{
                     listCargas = new CargaListViewAdapter(((Caminhao) reference.getSelectedItem()).cargas(),getActivity());
                 }

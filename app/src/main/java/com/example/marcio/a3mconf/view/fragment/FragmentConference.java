@@ -26,7 +26,7 @@ public class FragmentConference extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_conference,container,false);
         carga = (Carga) getArguments().getSerializable("carga");
-        getActivity().setTitle("Conferência: "+carga.getId());
+        getActivity().setTitle("Conferência: "+carga.getExpedicao());
         ListView lista = view.findViewById(R.id.conference_list_lotes);
         LoteListViewAdapter cargasAdapter = new LoteListViewAdapter(carga.getLotes(),getActivity());
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
