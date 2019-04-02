@@ -8,6 +8,7 @@ import model.Carga;
 import model.Conferente;
 import model.Motorista;
 import model.exceptions.EmptyFieldException;
+import model.exceptions.NullLoteExeption;
 
 public class ConferenteIndirection {
     private Conferente conferente;
@@ -27,9 +28,12 @@ public class ConferenteIndirection {
          conferente.iniciarConferencia();
     }
 
-    public void finalizarConferencia(String strExpedicao,String motorista) throws EmptyFieldException {
-        if(conferente.getCarga().getLotes().isEmpty()) {
+    public void finalizarConferencia(String strExpedicao,String motorista) throws EmptyFieldException, NumberFormatException, NullLoteExeption {
+        if(strExpedicao.isEmpty()) {
             throw new EmptyFieldException();
+        }
+        if(conferente.getCarga().getLotes().isEmpty()){
+            throw new NullLoteExeption();
         }
         int expedicao = Integer.parseInt(strExpedicao);
         conferente.finalizarConferencia(expedicao,motorista);

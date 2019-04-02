@@ -27,6 +27,7 @@ import model.Caminhao;
 import model.Lote;
 import model.Motorista;
 import model.exceptions.EmptyFieldException;
+import model.exceptions.NullLoteExeption;
 
 public class FragmentInitConference extends Fragment {
     private TrocaDeTelasListener listener;
@@ -75,6 +76,8 @@ public class FragmentInitConference extends Fragment {
                    lista.setAdapter(null);
                    conferente.iniciarConferencia();
                } catch (EmptyFieldException e) {
+                   Toast.makeText(getContext(),"Informe o número da expedição!",Toast.LENGTH_SHORT).show();
+               } catch (NullLoteExeption nullLoteExeption) {
                    Toast.makeText(getContext(),"Adicione no mínimo um lote!",Toast.LENGTH_SHORT).show();
                }
 
