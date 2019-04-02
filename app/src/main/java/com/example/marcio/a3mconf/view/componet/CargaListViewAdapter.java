@@ -49,7 +49,7 @@ public class CargaListViewAdapter extends BaseAdapter {
         TextView descrica = view.findViewById(R.id.lista_cargas_personalizada_descricao);
         ImageView image = view.findViewById(R.id.lista_cargas_personalizada_imagem);
         Carga carga = cargas.get(position);
-        nome.setText(carga.getId()+"");
+        nome.setText(carga.getExpedicao()+"");
         descrica.setText(formatDate(carga.getData()));
         String foto = carga.getLotes().get(0).getFotoAltura();
 

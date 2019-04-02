@@ -24,14 +24,16 @@ import java.util.List;
 
 import control.ConferenteIndirection;
 import model.Caminhao;
-import model.Expedicao;
 import model.Lote;
 import model.Motorista;
+import model.exceptions.EmptyFieldException;
 
 public class FragmentInitConference extends Fragment {
     private TrocaDeTelasListener listener;
-    TextView mTextView;
-    private Spinner expedicoes,caminhoes,motoristas;
+    private TextView expedicao;
+    private Button btnOpenTela,btnFinalizar;
+    private Spinner caminhoes,motoristas;
+    private LoteListViewAdapter lotesAdapter;
 
 
     @Nullable
@@ -39,20 +41,20 @@ public class FragmentInitConference extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_init_conference,container,false);
 
-        mTextView = (TextView) view.findViewById(R.id.text);
         getActivity().setTitle("Realizar Conferência");
 
         final ListView lista = view.findViewById(R.id.lista_de_lotes);
         final ConferenteIndirection conferente = ConferenteIndirection.getInstance();
         conferente.iniciarConferencia();
-        expedicoes   = view.findViewById(R.id.spinner_expedicoes);
+
+        expedicao    = view.findViewById(R.id.tv_expedicao);
         caminhoes    = view.findViewById(R.id.spinner_caminhoes);
         motoristas   = view.findViewById(R.id.spinner_motorista);
 
-        Button btnOpenTela = view.findViewById(R.id.add_lote);
-        Button btnFinalizar = view.findViewById(R.id.finalizar_conferencia);
+        btnOpenTela = view.findViewById(R.id.add_lote);
+        btnFinalizar = view.findViewById(R.id.finalizar_conferencia);
 
-        LoteListViewAdapter lotesAdapter = new LoteListViewAdapter(conferente.getCarga().getLotes(),getActivity());
+        lotesAdapter = new LoteListViewAdapter(conferente.getCarga().getLotes(),getActivity());
         lista.setAdapter(lotesAdapter);
 
 
@@ -66,13 +68,16 @@ public class FragmentInitConference extends Fragment {
            @Override
            public void onClick(View v) {
 
-               conferente.getCarga().setExpedicao((Expedicao) expedicoes.getSelectedItem());
                conferente.getCarga().setCaminhao((Caminhao) caminhoes.getSelectedItem());
-               conferente.finalizarConferencia(((Motorista) motoristas.getSelectedItem()).getCpf());
+               try {
+                   conferente.finalizarConferencia(expedicao.getText().toString(),((Motorista) motoristas.getSelectedItem()).getCpf());
+                   Toast.makeText(getContext(),"Carga registrada com sucesso!",Toast.LENGTH_SHORT).show();
+                   lista.setAdapter(null);
+                   conferente.iniciarConferencia();
+               } catch (EmptyFieldException e) {
+                   Toast.makeText(getContext(),"Adicione no mínimo um lote!",Toast.LENGTH_SHORT).show();
+               }
 
-               Toast.makeText(getContext(),"Carga registrada com sucesso!",Toast.LENGTH_SHORT).show();
-               lista.setAdapter(null);
-               conferente.iniciarConferencia();
            }
         });
 
@@ -82,12 +87,6 @@ public class FragmentInitConference extends Fragment {
                 listener.openTelaLote((Lote) parent.getAdapter().getItem(position));
             }
         });
-
-        List<Expedicao> listExpedicoes = conferente.expedicaos();
-        ArrayAdapter<Expedicao> spinnerExpedicoesArrayAdapter = new ArrayAdapter<Expedicao>(getContext(), android.R.layout.simple_spinner_item,
-                listExpedicoes);
-        spinnerExpedicoesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        expedicoes.setAdapter(spinnerExpedicoesArrayAdapter);
 
         List<Caminhao> listCaminhoes = conferente.caminhoes();
         ArrayAdapter<Caminhao> spinnerCaminhoesArrayAdapter = new ArrayAdapter<Caminhao>(getContext(), android.R.layout.simple_spinner_item,

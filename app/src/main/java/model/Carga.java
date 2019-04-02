@@ -6,9 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 public class Carga implements Serializable {
-    private int id;
+    private int expedicao;
     private Conferente conferente;
-    private Expedicao expedicao;
     private List<Lote> lotes;
     private Caminhao caminhao;
     private String data;
@@ -16,19 +15,14 @@ public class Carga implements Serializable {
     public Carga(Conferente conferente){
         this.lotes = new ArrayList<>();
         this.conferente = conferente;
-        this.id = gerarId();
     }
 
-    private  int gerarId(){
-        return (int) new Date().getTime();
+    public int getExpedicao() {
+        return expedicao;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setExpedicao(int id) {
+        this.expedicao = id;
     }
 
     public Conferente getConferente() {
@@ -63,13 +57,6 @@ public class Carga implements Serializable {
         this.lotes.remove(lote);
     }
 
-    public Expedicao getExpedicao() {
-        return expedicao;
-    }
-
-    public void setExpedicao(Expedicao expedicao) {
-        this.expedicao = expedicao;
-    }
 
     public List<Lote> getLotes() {
         return lotes;
@@ -81,6 +68,6 @@ public class Carga implements Serializable {
 
     @Override
     public String toString() {
-        return "Nº Conferencia: "+ id;
+        return "Nº Conferencia: "+ expedicao;
     }
 }

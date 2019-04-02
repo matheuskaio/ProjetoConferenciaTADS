@@ -42,7 +42,9 @@ public class RequestFuncionario{
     public Funcionario get(String cpf) throws CPFNotFoundException {
         String str = null;
         try {
+            Log.e("cpf",cpf+"");
             str = new Solicita("cpf="+cpf).execute(Connection.URL+"getFuncionario.php").get();
+            Log.e("funcionario",str+"");
             if(str.length()<25){
                 throw new CPFNotFoundException();
             }

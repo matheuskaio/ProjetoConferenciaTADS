@@ -1,5 +1,7 @@
 package model;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -7,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.request.RequestCarga;
-import model.request.RequestExpedicao;
 import model.request.RequestFuncionario;
 import model.request.RequestCaminhao;
 
@@ -45,30 +46,19 @@ public class Conferente extends Funcionario {
         carga.addLote(lote);
     }
 
-    public void finalizarConferencia(String motorista){
+    public void finalizarConferencia(int expedicao,String motorista){
+        carga.setExpedicao(expedicao);
         new RequestCarga().insert(carga,motorista); carga = null;
     }
 
     public List<Carga> myCargas(){
         String str = new RequestCarga().selecte(this);
+        Log.e("cargas",str+"");
         if(str.length()<5){
             return new ArrayList<Carga>();
         }
         return new Gson().fromJson(str,new TypeToken<List<Carga>>(){}.getType());
 
-    }
-
-
-    public void cadastraExpedicao(Expedicao expedicao){
-        new RequestExpedicao().insert(expedicao);
-    }
-
-    public List<Expedicao> listarExpedicaos(){
-        String str = new RequestExpedicao().select();
-        if(str.length()<5){
-            return new ArrayList<>();
-        }
-        return new Gson().fromJson(str,new TypeToken<List<Expedicao>>(){}.getType());
     }
 
     public void cadastrarCaminhao(Caminhao caminhao){

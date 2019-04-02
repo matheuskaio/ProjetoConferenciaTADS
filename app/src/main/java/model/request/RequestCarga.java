@@ -12,7 +12,6 @@ import java.util.concurrent.ExecutionException;
 import model.Caminhao;
 import model.Carga;
 import model.Conferente;
-import model.Expedicao;
 import model.Motorista;
 
 public class    RequestCarga {
@@ -20,10 +19,9 @@ public class    RequestCarga {
     private String parametros;
     public void insert(Carga carga,String motorista){
         String strCarga = "{" +
-                "\"id\":\""+carga.getId()+"\","+
+                "\"expedicao\":"+carga.getExpedicao()+","+
                 "\"conferente\":\""+carga.getConferente().getCpf()+"\","+
-                "\"caminhao\":\""+carga.getCaminhao().getPlaca()+"\","+
-                "\"expedicao\":"+carga.getExpedicao().getId()+"}";
+                "\"caminhao\":\""+carga.getCaminhao().getPlaca()+"\""+"}";
 
         try {
 
@@ -33,7 +31,14 @@ public class    RequestCarga {
             e.printStackTrace();
         }
 
-        new Solicita(parametros).execute(Connection.URL+"insertCarga.php");
+        try {
+            String str = new Solicita(parametros).execute(Connection.URL+"insertCarga.php").get();
+            Log.e("result",str);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -50,17 +55,6 @@ public class    RequestCarga {
         return "Erro ao consultar";
     }
 
-    public String selecte(Expedicao expedicao){
-
-        try {
-            return new Solicita("expedicao="+expedicao.getId()).execute(Connection.URL+"selectCargas.php").get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return "Erro ao consultar";
-    }
 
     public String selecte(Caminhao caminhao){
 
@@ -78,7 +72,7 @@ public class    RequestCarga {
     public String selecte(Conferente conferente){
         parametros ="cpf="+conferente.getCpf();
         try {
-            return new Solicita(parametros).execute(Connection.URL+"selectMyCargas.php").get();
+            return new Solicita(parametros).execute(Connection.URL+"selectCargas.php").get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

@@ -1,6 +1,8 @@
 package model;
 
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,7 +11,6 @@ import java.util.List;
 
 import model.request.RequestCaminhao;
 import model.request.RequestCarga;
-import model.request.RequestExpedicao;
 import model.request.RequestFuncionario;
 
 public class Gerente extends Funcionario {
@@ -37,6 +38,7 @@ public class Gerente extends Funcionario {
 
     public List<Carga> allCargas() {
         String str= new RequestCarga().selecte();
+        Log.e("result",str);
         if(str.length()<5){
             return new ArrayList<Carga>();
         }
@@ -60,13 +62,7 @@ public class Gerente extends Funcionario {
         return new Gson().fromJson(str,new TypeToken<List<Conferente>>(){}.getType());
     }
 
-    public List<Expedicao> listarExpedicoes(){
-        String str = new RequestExpedicao().select();
-        if(str.length()<5){
-            return new ArrayList<>();
-        }
-        return new Gson().fromJson(str,new TypeToken<List<Expedicao>>(){}.getType());
-    }
+
 
     public List<Caminhao> listarCaminhoes(){
         String str = new RequestCaminhao().select();

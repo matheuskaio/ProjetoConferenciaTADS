@@ -6,7 +6,6 @@ import java.util.List;
 import model.Caminhao;
 import model.Carga;
 import model.Conferente;
-import model.Expedicao;
 import model.Motorista;
 import model.exceptions.EmptyFieldException;
 
@@ -28,17 +27,18 @@ public class ConferenteIndirection {
          conferente.iniciarConferencia();
     }
 
-    public void finalizarConferencia(String motorista){
-        conferente.finalizarConferencia(motorista);
+    public void finalizarConferencia(String strExpedicao,String motorista) throws EmptyFieldException {
+        if(conferente.getCarga().getLotes().isEmpty()) {
+            throw new EmptyFieldException();
+        }
+        int expedicao = Integer.parseInt(strExpedicao);
+        conferente.finalizarConferencia(expedicao,motorista);
     }
 
     public Carga getCarga(){
         return  conferente.getCarga();
     }
 
-    public List<Expedicao> expedicaos(){
-        return conferente.listarExpedicaos();
-    }
 
     public List<Motorista> motoristas(){
         return conferente.listarMotoristas();
@@ -53,20 +53,6 @@ public class ConferenteIndirection {
             throw new EmptyFieldException();
         }
         conferente.cadastrarCaminhao(new Caminhao(modelo,placa));
-    }
-
-    public void cadastrarExpedicao(String name,List<String> cidades) throws EmptyFieldException {
-        Expedicao expedicao = new Expedicao(new ArrayList<String>(), name);
-        if(name.isEmpty()){
-            throw new EmptyFieldException();
-        }
-        for (String cidade:cidades){
-            if(cidade.isEmpty()){
-                throw new EmptyFieldException();
-            }
-            expedicao.add(cidade);
-        }
-        conferente.cadastraExpedicao(expedicao);
     }
 
     public List<Carga> myCargas() {
