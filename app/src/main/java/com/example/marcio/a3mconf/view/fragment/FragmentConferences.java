@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.componet.CargaListViewAdapter;
@@ -19,6 +20,7 @@ import control.FuncionarioControl;
 import control.GerenteIndirection;
 import model.Carga;
 import model.Gerente;
+import model.exceptions.ConexaoException;
 
 public class FragmentConferences extends Fragment {
     private TrocaDeTelasListener listener;
@@ -34,7 +36,12 @@ public class FragmentConferences extends Fragment {
                 listener.openTelaConference((Carga) parent.getAdapter().getItem(position));
             }
         });
-        CargaListViewAdapter cargasAdapter = new CargaListViewAdapter(GerenteIndirection.getInstance().allCargas(),getActivity());
+        CargaListViewAdapter cargasAdapter = null;
+        try {
+            cargasAdapter = new CargaListViewAdapter(GerenteIndirection.getInstance().allCargas(),getActivity());
+        } catch (ConexaoException e) {
+            Toast.makeText(getContext(),"Erro de conexão",Toast.LENGTH_SHORT).show();
+        }
         lista.setAdapter(cargasAdapter);
         return view;
     }

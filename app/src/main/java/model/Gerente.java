@@ -1,14 +1,13 @@
 package model;
 
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import model.exceptions.ConexaoException;
 import model.request.RequestCaminhao;
 import model.request.RequestCarga;
 import model.request.RequestFuncionario;
@@ -36,38 +35,57 @@ public class Gerente extends Funcionario {
     }
 
 
-    public List<Carga> allCargas() {
+    public List<Carga> allCargas() throws ConexaoException {
         String str= new RequestCarga().selecte();
-        Log.e("result",str);
-        if(str.length()<5){
-            return new ArrayList<Carga>();
+        try {
+
+            if(str.length()<5){
+                return new ArrayList<Carga>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
         }
         List<Carga> cargas = new Gson().fromJson(str,new TypeToken<List<Carga>>(){}.getType());
         return  cargas;
     }
 
-    public List<Motorista> listarMotoristas(){
+    public List<Motorista> listarMotoristas() throws ConexaoException {
         String str = new RequestFuncionario().select('M');
-        if(str.length()<5){
-            return new ArrayList<>();
+        try {
+
+            if(str.length()<5){
+                return new ArrayList<>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
         }
         return new Gson().fromJson(str,new TypeToken<List<Motorista>>(){}.getType());
     }
 
-    public List<Conferente> listarConferente(){
+    public List<Conferente> listarConferente() throws ConexaoException {
         String str = new RequestFuncionario().select('C');
-        if(str.length()<5){
-            return new ArrayList<>();
+        try {
+
+            if(str.length()<5){
+                return new ArrayList<>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
         }
         return new Gson().fromJson(str,new TypeToken<List<Conferente>>(){}.getType());
     }
 
 
 
-    public List<Caminhao> listarCaminhoes(){
+    public List<Caminhao> listarCaminhoes() throws ConexaoException {
         String str = new RequestCaminhao().select();
-        if(str.length()<5){
-            return new ArrayList<>();
+        try {
+
+            if(str.length()<5){
+                return new ArrayList<>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
         }
         return new Gson().fromJson(str,new TypeToken<List<Caminhao>>(){}.getType());
     }

@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.marcio.a3mconf.R;
 import com.example.marcio.a3mconf.view.componet.CargaListViewAdapter;
@@ -23,13 +24,19 @@ import control.GerenteIndirection;
 import model.Caminhao;
 import model.Conferente;
 import model.Motorista;
+import model.exceptions.ConexaoException;
 
 public class FragmentReport extends Fragment {
+
     private List<String> types;
     private Spinner type,reference;
     private GerenteIndirection gerente;
     private Button generateReport;
     private ListView reports;
+    private ArrayAdapter<Conferente> listConferentes = null;
+    private ArrayAdapter<Caminhao> listCaminhao = null;
+    private ArrayAdapter<Motorista> listMotoristas = null;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,9 +56,23 @@ public class FragmentReport extends Fragment {
 
         ArrayAdapter<String> listType = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,types);
         type.setAdapter(listType);
-        final ArrayAdapter<Caminhao> listCaminhao = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allCaminhoes());
-        final ArrayAdapter<Conferente> listConferentes = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allConferentes());
-        final ArrayAdapter<Motorista> listMotoristas = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allMotoristas());
+        try {
+            listCaminhao = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allCaminhoes());
+        } catch (ConexaoException e) {
+            Toast.makeText(getContext(),"Erro de conexão",Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            listConferentes = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allConferentes());
+        } catch (ConexaoException e) {
+            Toast.makeText(getContext(),"Erro de conexão",Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            listMotoristas = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_dropdown_item,gerente.allMotoristas());
+        } catch (ConexaoException e) {
+            Toast.makeText(getContext(),"Erro de conexão",Toast.LENGTH_SHORT).show();
+        }
 
         reference.setAdapter(listCaminhao);
 
@@ -81,13 +102,21 @@ public class FragmentReport extends Fragment {
             public void onClick(View v) {
                 CargaListViewAdapter listCargas = null;
                 if(reference.getSelectedItem() instanceof Conferente){
-                    listCargas = new CargaListViewAdapter(((Conferente) reference.getSelectedItem()).myCargas(),getActivity());
+                    try {
+                        listCargas = new CargaListViewAdapter(((Conferente) reference.getSelectedItem()).myCargas(),getActivity());
+                    } catch (ConexaoException e) {
+                        Toast.makeText(getContext(),"Erro de conexão",Toast.LENGTH_SHORT).show();
+                    }
                 }else if(reference.getSelectedItem() instanceof Motorista){
                     listCargas = new CargaListViewAdapter(((Motorista) reference.getSelectedItem()).myCargas(),getActivity());
                 }else if(reference.getSelectedItem() instanceof String){
                     listCargas = new CargaListViewAdapter(null,getActivity());
                 }else{
-                    listCargas = new CargaListViewAdapter(((Caminhao) reference.getSelectedItem()).cargas(),getActivity());
+                    try {
+                        listCargas = new CargaListViewAdapter(((Caminhao) reference.getSelectedItem()).cargas(),getActivity());
+                    } catch (ConexaoException e) {
+                        Toast.makeText(getContext(),"Erro de conexão",Toast.LENGTH_SHORT).show();
+                    }
                 }
                 reports.setAdapter(listCargas);
             }

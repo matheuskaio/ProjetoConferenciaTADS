@@ -7,6 +7,7 @@ import model.Caminhao;
 import model.Carga;
 import model.Conferente;
 import model.Motorista;
+import model.exceptions.ConexaoException;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.NullLoteExeption;
 
@@ -44,11 +45,11 @@ public class ConferenteIndirection {
     }
 
 
-    public List<Motorista> motoristas(){
+    public List<Motorista> motoristas() throws ConexaoException {
         return conferente.listarMotoristas();
     }
 
-    public List<Caminhao> caminhoes() {
+    public List<Caminhao> caminhoes() throws ConexaoException {
         return conferente.listarCaminhoes();
     }
 
@@ -59,7 +60,7 @@ public class ConferenteIndirection {
         conferente.cadastrarCaminhao(new Caminhao(modelo,placa));
     }
 
-    public List<Carga> myCargas() {
+    public List<Carga> myCargas() throws ConexaoException {
         return conferente.myCargas();
     }
 

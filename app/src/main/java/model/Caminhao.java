@@ -1,7 +1,5 @@
 package model;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -9,6 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.exceptions.ConexaoException;
 import model.request.RequestCarga;
 
 public class Caminhao implements Serializable {
@@ -36,11 +35,14 @@ public class Caminhao implements Serializable {
         this.placa = placa;
     }
 
-    public List<Carga> cargas(){
+    public List<Carga> cargas() throws ConexaoException {
         String str = new RequestCarga().selecte(this);
-        Log.e("str",str);
-        if(str.length()<25){
-            return new ArrayList<>();
+        try {
+            if(str.length()<25){
+                return new ArrayList<>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
         }
         return new Gson().fromJson(str,new TypeToken<List<Carga>>(){}.getType());
     }

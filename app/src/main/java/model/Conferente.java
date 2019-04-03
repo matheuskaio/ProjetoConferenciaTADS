@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.exceptions.ConexaoException;
 import model.request.RequestCarga;
 import model.request.RequestFuncionario;
 import model.request.RequestCaminhao;
@@ -51,11 +52,14 @@ public class Conferente extends Funcionario {
         new RequestCarga().insert(carga,motorista); carga = null;
     }
 
-    public List<Carga> myCargas(){
+    public List<Carga> myCargas() throws ConexaoException {
         String str = new RequestCarga().selecte(this);
-        Log.e("cargas",str+"");
-        if(str.length()<5){
-            return new ArrayList<Carga>();
+        try {
+            if(str.length()<5){
+                return new ArrayList<Carga>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
         }
         return new Gson().fromJson(str,new TypeToken<List<Carga>>(){}.getType());
 
@@ -65,16 +69,28 @@ public class Conferente extends Funcionario {
         new RequestCaminhao().insert(caminhao);
     }
 
-    public List<Caminhao> listarCaminhoes(){
+    public List<Caminhao> listarCaminhoes() throws ConexaoException {
         String str = new RequestCaminhao().select();
-        if(str.length()<5){
-            return new ArrayList<>();
+        try {
+            if(str.length()<5){
+                return new ArrayList<>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
         }
         return new Gson().fromJson(str,new TypeToken<List<Caminhao>>(){}.getType());
     }
 
-    public List<Motorista> listarMotoristas(){
+    public List<Motorista> listarMotoristas() throws ConexaoException {
         String str = new RequestFuncionario().select('M');
+        try {
+
+            if(str.length()<5){
+                return new ArrayList<Motorista>();
+            }
+        }catch (NullPointerException e){
+            throw new ConexaoException();
+        }
         return new Gson().fromJson(str,new TypeToken<List<Motorista>>(){}.getType());
     }
 

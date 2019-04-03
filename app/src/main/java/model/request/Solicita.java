@@ -7,8 +7,7 @@ public class Solicita extends AsyncTask<String, Void, String> {
     private String parametros;
 
     public Solicita(String parametros){
-            this.parametros = parametros;
-
+        this.parametros = parametros;
     }
 
     @Override

@@ -21,8 +21,8 @@ public class Carga implements Serializable {
         return expedicao;
     }
 
-    public void setExpedicao(int id) {
-        this.expedicao = id;
+    public void setExpedicao(int expedicao) {
+        this.expedicao = expedicao;
     }
 
     public Conferente getConferente() {

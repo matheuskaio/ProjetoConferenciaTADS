@@ -26,6 +26,7 @@ import control.ConferenteIndirection;
 import model.Caminhao;
 import model.Lote;
 import model.Motorista;
+import model.exceptions.ConexaoException;
 import model.exceptions.EmptyFieldException;
 import model.exceptions.NullLoteExeption;
 
@@ -91,13 +92,23 @@ public class FragmentInitConference extends Fragment {
             }
         });
 
-        List<Caminhao> listCaminhoes = conferente.caminhoes();
+        List<Caminhao> listCaminhoes = null;
+        try {
+            listCaminhoes = conferente.caminhoes();
+        } catch (ConexaoException e) {
+            Toast.makeText(getContext(),"Erro na conexão!",Toast.LENGTH_SHORT).show();
+        }
         ArrayAdapter<Caminhao> spinnerCaminhoesArrayAdapter = new ArrayAdapter<Caminhao>(getContext(), android.R.layout.simple_spinner_item,
                 listCaminhoes);
         spinnerCaminhoesArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         caminhoes.setAdapter(spinnerCaminhoesArrayAdapter);
 
-        List<Motorista> listMotoristas = conferente.motoristas();
+        List<Motorista> listMotoristas = null;
+        try {
+            listMotoristas = conferente.motoristas();
+        } catch (ConexaoException e) {
+            Toast.makeText(getContext(),"Erro na conexão!",Toast.LENGTH_SHORT).show();
+        }
         ArrayAdapter<Motorista> spinnerMotoristaArrayAdapter = new ArrayAdapter<Motorista>(getContext(), android.R.layout.simple_spinner_item,
                 listMotoristas);
         spinnerMotoristaArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

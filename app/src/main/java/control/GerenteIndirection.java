@@ -7,6 +7,7 @@ import model.Carga;
 import model.Conferente;
 import model.Gerente;
 import model.Motorista;
+import model.exceptions.ConexaoException;
 
 public class GerenteIndirection {
     private Gerente gerente;
@@ -35,7 +36,7 @@ public class GerenteIndirection {
         }
     }
 
-    public List<Carga> allCargas(){
+    public List<Carga> allCargas() throws ConexaoException {
         return gerente.allCargas();
     }
 
@@ -50,14 +51,14 @@ public class GerenteIndirection {
         }
     }
 
-    public List<Conferente> allConferentes(){
+    public List<Conferente> allConferentes() throws ConexaoException {
         return gerente.listarConferente();
     }
-    public List<Caminhao> allCaminhoes(){
+    public List<Caminhao> allCaminhoes() throws ConexaoException {
         return gerente.listarCaminhoes();
     }
 
-    public List<Motorista> allMotoristas(){
+    public List<Motorista> allMotoristas() throws ConexaoException {
         return gerente.listarMotoristas();
     }
 }
